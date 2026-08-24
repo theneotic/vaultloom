@@ -40,11 +40,13 @@
 
 # Final theme and mobile verification
 
-- [ ] Verify explicit light and dark theme states across every public route.
-- [ ] Review the remaining About and Terms routes at phone width, then rerun final automated validation.
+- [x] Verify explicit light and dark theme states across every public route.
+- [x] Review the remaining About and Terms routes at phone width, then rerun final automated validation.
+- [x] Record the explicit light and dark visual review across every public route.
+- [x] Run type checking, automated tests, and a production build against the final responsive state.
 
 # GitHub repository migration
 
-- [ ] Archive the existing Vaultloom GitHub repository under a distinct private name.
-- [ ] Create a fresh private vaultloom repository and publish the completed project using the user’s configured GitHub identity.
-- [ ] Verify repository ownership, commit attribution, remote configuration, and default branch.
+- [x] Archive the existing Vaultloom GitHub repository under a distinct private name.
+- [x] Create a fresh private vaultloom repository and publish the completed project using the user’s configured GitHub identity.
+- [x] Verify repository ownership, commit attribution, remote configuration, and default branch.
