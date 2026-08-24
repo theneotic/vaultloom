@@ -1,0 +1,146 @@
+/* Cipher Atelier: deep ink, warm paper, Signal Blue #275DF5, Space Grotesk + IBM Plex Mono. */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.15rem;
+  --background: oklch(0.95 0.012 85);
+  --foreground: oklch(0.16 0.012 260);
+  --card: oklch(0.97 0.01 85);
+  --card-foreground: oklch(0.15 0.01 260);
+  --popover: oklch(0.97 0.01 85);
+  --popover-foreground: oklch(0.15 0.01 260);
+  --primary: oklch(0.51 0.22 265);
+  --primary-foreground: oklch(0.98 0.01 255);
+  --secondary: oklch(0.9 0.014 85);
+  --secondary-foreground: oklch(0.2 0.012 260);
+  --muted: oklch(0.9 0.014 85);
+  --muted-foreground: oklch(0.46 0.012 260);
+  --accent: oklch(0.9 0.05 265);
+  --accent-foreground: oklch(0.2 0.012 260);
+  --destructive: oklch(0.61 0.23 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.3 0.012 260 / 24%);
+  --input: oklch(0.3 0.012 260 / 24%);
+  --ring: oklch(0.51 0.22 265);
+}
+
+.dark {
+  --background: oklch(0.14 0.01 260);
+  --foreground: oklch(0.96 0.01 85);
+  --card: oklch(0.2 0.015 260);
+  --card-foreground: oklch(0.96 0.01 85);
+  --popover: oklch(0.2 0.015 260);
+  --popover-foreground: oklch(0.96 0.01 85);
+  --primary: oklch(0.62 0.21 265);
+  --primary-foreground: oklch(0.15 0.01 260);
+  --secondary: oklch(0.24 0.015 260);
+  --secondary-foreground: oklch(0.93 0.01 85);
+  --muted: oklch(0.24 0.015 260);
+  --muted-foreground: oklch(0.7 0.015 260);
+  --accent: oklch(0.24 0.03 265);
+  --accent-foreground: oklch(0.97 0.01 85);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.62 0.21 265);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background-image: radial-gradient(circle at 75% 0%, rgba(39, 93, 245, 0.12), transparent 28rem);
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) { @apply cursor-pointer; }
+}
+
+@layer utilities {
+  .font-display { font-family: "Space Grotesk", system-ui, sans-serif; }
+  .font-mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
+}
+
+/* Light mode keeps workbench paper surfaces while converting application chrome for daytime use. */
+html:not(.dark) .cipher-page { background-color: #eeeae0; color: #151619; }
+html:not(.dark) .cipher-header { background-color: #151619; color: #f5f1e8; border-color: rgba(255, 255, 255, 0.12); }
+html:not(.dark) .cipher-public-hero { background-color: #151619; color: #f5f1e8; }
+html:not(.dark) .cipher-footer, html:not(.dark) .cipher-sidebar { background-color: #f7f4ec; color: #151619; border-color: rgba(21, 22, 25, 0.15); }
+html:not(.dark) .cipher-header [class*="text-white"] { color: #f5f1e8 !important; }
+html:not(.dark) .cipher-public-hero [class*="text-white"] { color: #f5f1e8 !important; }
+html:not(.dark) .cipher-footer [class*="text-white"], html:not(.dark) .cipher-sidebar [class*="text-white"] { color: #151619 !important; }
+html:not(.dark) .cipher-header [class*="text-[#94b2ff]"] { color: #94b2ff !important; }
+html:not(.dark) .cipher-footer [class*="text-[#94b2ff]"], html:not(.dark) .cipher-sidebar [class*="text-[#94b2ff]"] { color: #1747ca !important; }
+html:not(.dark) .cipher-footer a:hover, html:not(.dark) .cipher-header a:hover { color: #275df5 !important; }
+html:not(.dark) .cipher-header .bg-\[\#275df5\] { color: white !important; }
+
+/* Dark mode is deliberately full-surface: every paper workspace, report control, and public content panel has a coherent ink treatment. */
+html.dark .cipher-page { background-color: #0b0f15; color: #eef3fb; }
+html.dark .cipher-workspace, html.dark .cipher-public-workspace { background: #0f1620; color: #eaf0f8; }
+html.dark .cipher-panel, html.dark .cipher-public-surface { background: #18212d; color: #edf3fb; border-color: rgba(202, 218, 241, 0.18); box-shadow: 6px 6px 0 #070a0f; }
+html.dark .cipher-panel [class*="text-black"], html.dark .cipher-public-surface [class*="text-black"], html.dark .cipher-report-form [class*="text-black"], html.dark .cipher-report-notice [class*="text-black"] { color: rgba(234, 240, 248, 0.72) !important; }
+html.dark .cipher-panel [class*="border-black"], html.dark .cipher-public-surface [class*="border-black"], html.dark .cipher-report-form [class*="border-black"] { border-color: rgba(202, 218, 241, 0.2) !important; }
+html.dark .cipher-panel [class*="bg-white"], html.dark .cipher-public-surface [class*="bg-white"], html.dark .cipher-report-form [class*="bg-white"] { background-color: #111923 !important; color: #edf3fb !important; }
+html.dark .cipher-panel input, html.dark .cipher-panel select, html.dark .cipher-panel textarea, html.dark .cipher-report-form input, html.dark .cipher-report-form select, html.dark .cipher-report-form textarea { background-color: #101720 !important; color: #eef3fb !important; border-color: rgba(202, 218, 241, 0.22) !important; }
+html.dark .cipher-panel input::placeholder, html.dark .cipher-report-form input::placeholder, html.dark .cipher-report-form textarea::placeholder { color: rgba(220, 230, 244, 0.42) !important; }
+html.dark .cipher-report-notice { background: #16243b !important; color: #edf3fb; }
+html.dark .cipher-report-notice [class*="text-\[\#1747ca\]"], html.dark .cipher-report-notice [class*="text-black"] { color: #a9c4ff !important; }
+html.dark .cipher-warning, html.dark .cipher-report-warning { background: #332612 !important; color: #fff2c9; }
+html.dark .cipher-warning [class*="text-amber"], html.dark .cipher-report-warning [class*="text-amber"] { color: #fbd38d !important; }
+html.dark .cipher-warning [class*="text-black"], html.dark .cipher-report-warning [class*="text-black"] { color: rgba(255, 242, 201, 0.78) !important; }
+html.dark .cipher-report-success { background: #102f2a !important; color: #e5fff4; }
+html.dark .cipher-report-success [class*="text-emerald"] { color: #a7f3d0 !important; }
+html.dark .cipher-report-success [class*="text-black"] { color: rgba(229, 255, 244, 0.78) !important; }
+html.dark .cipher-panel .bg-\[\#d8d1bf\] { background-color: #2b3542 !important; color: #dce7f7 !important; }
+html.dark .cipher-panel .bg-\[\#e8eeff\] { background-color: #1c315e !important; color: #c7d8ff !important; }
+html.dark .cipher-panel .bg-emerald-50 { background-color: #102e29 !important; color: #a7f3d0 !important; }
+html.dark .cipher-footer, html.dark .cipher-sidebar { background-color: #0b0f15 !important; border-color: rgba(202, 218, 241, 0.14); }
+
+@media (max-width: 640px) {
+  .cipher-header, .cipher-public-hero { border-left-width: 4px; }
+  .cipher-workspace, .cipher-public-workspace { padding-bottom: 2.5rem; }
+  .cipher-panel, .cipher-public-surface { min-width: 0; }
+  .cipher-panel .font-mono { letter-spacing: 0.04em; }
+  .cipher-footer { border-left-width: 4px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a, button, input { transition: color 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 160ms cubic-bezier(0.23, 1, 0.32, 1), border-color 160ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  button:active { transform: scale(0.98); }
+}
