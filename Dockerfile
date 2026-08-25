@@ -10,6 +10,7 @@ RUN pnpm install --frozen-lockfile
 COPY client ./client
 COPY server ./server
 COPY shared ./shared
+COPY drizzle ./drizzle
 COPY tsconfig.json tsconfig.node.json vite.config.ts components.json ./
 RUN pnpm build
 
