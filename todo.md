@@ -66,3 +66,8 @@
 
 - [x] Inspect the failed test-and-build workflow logs and identify the CI-specific root cause.
 - [x] Repair the workflow or project configuration and verify a green quality-gate run on GitHub.
+
+# Explicit user-attributed release commit
+
+- [ ] Commit and push the latest Vaultloom work with both author and committer set to THE <sigmamale2951@gmail.com>.
+- [ ] Verify GitHub associates the pushed commit with the theneotic account.
