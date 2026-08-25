@@ -11,7 +11,7 @@ export const systemRouter = router({
     )
     .query(() => ({
       ok: true,
-      appTitle: process.env.VITE_APP_TITLE ?? "",
+      appTitle: process.env.VITE_APP_TITLE || "Vaultloom",
     })),
 
   notifyOwner: adminProcedure
