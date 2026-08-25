@@ -50,3 +50,9 @@
 - [x] Archive the existing Vaultloom GitHub repository under a distinct private name.
 - [x] Create a fresh private vaultloom repository and publish the completed project using the user’s configured GitHub identity.
 - [x] Verify repository ownership, commit attribution, remote configuration, and default branch.
+
+# Image delivery regression
+
+- [x] Diagnose why Vaultloom images are not loading in the current site preview.
+- [x] Repair image delivery and verify all branded assets resolve from every public route.
+- [x] Document the verified asset-delivery behavior and the cache-busting remediation for future artwork updates.
