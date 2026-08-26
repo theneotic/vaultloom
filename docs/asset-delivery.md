@@ -9,3 +9,7 @@ At request time, `server/_core/storageProxy.ts` requests a fresh presigned URL f
 The reported delivery failure was not reproducible as a persistent storage-proxy error: the original asset keys still produced valid presigned redirects when inspected. To eliminate the risk of a client retaining superseded immutable-object references, the three active assets were re-uploaded and the manifest was updated together with newly versioned keys. The refreshed mark, texture, and generator artwork were each checked directly, and the workbench plus every public route were visually reviewed.
 
 For future artwork updates, upload source files from `/home/ubuntu/webdev-static-assets/` with the project asset workflow, update every affected manifest entry in one change, and never commit direct signed CDN URLs. The storage proxy must remain registered ahead of the application router and static/Vite handling in `server/_core/index.ts`.
+
+## Vercel live check — August 2026
+
+The live `https://vaultlooms.vercel.app/` homepage is serving the CSS-rendered Vaultloom glyph, header texture, and generator field successfully; these visible treatments no longer require a remote image request. The legacy `/api/brand/mark` path currently returns Vercel `404 NOT_FOUND`, which confirms the deployment is not registering the catch-all backend Function. This does not break the visible brand system after the fallback repair, but the API route must be fixed before authenticated reporting or Blob-backed uploads can operate on Vercel.

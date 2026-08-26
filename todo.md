@@ -102,3 +102,4 @@
 - [ ] Inspect the actual deployed Vercel brand-image responses and record the failing status or error once the live URL is available.
 - [x] Add a deployment-safe brand-image fallback that does not require unseeded Blob configuration.
 - [ ] Verify all visible images resolve on the deployed site before closing the reliability issue.
+- [ ] Inspect https://vaultlooms.vercel.app/ directly at desktop and phone widths after the deployment-safe fallback commit.
