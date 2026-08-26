@@ -17,7 +17,9 @@ export const brandAssetKeys = Object.keys(BRAND_OBJECTS) as BrandAsset[];
 export function getBrandAssetUrl(asset: BrandAsset) {
   const baseUrl = process.env.BLOB_PUBLIC_BASE_URL?.replace(/\/+$/, "");
   if (baseUrl) return `${baseUrl}/${BRAND_OBJECTS[asset]}`;
-  return process.env.NODE_ENV === "production" ? null : localManagedFallbacks[asset];
+  return process.env.NODE_ENV === "production"
+    ? null
+    : localManagedFallbacks[asset];
 }
 
 export function isBrandAsset(value: string): value is BrandAsset {

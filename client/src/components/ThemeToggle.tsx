@@ -14,7 +14,11 @@ export default function ThemeToggle() {
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
       type="button"
     >
-      {isDark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
+      {isDark ? (
+        <Sun className="h-4 w-4" aria-hidden="true" />
+      ) : (
+        <Moon className="h-4 w-4" aria-hidden="true" />
+      )}
     </button>
   );
 }

@@ -18,11 +18,15 @@ const zxcvbn = new ZxcvbnFactory({
 
 export type PasswordAnalysis = ReturnType<typeof zxcvbn.check>;
 
-export function analyzePassword(password: string, userInputs: string[] = []): PasswordAnalysis {
-  if (typeof password !== "string") throw new TypeError("password must be a string");
+export function analyzePassword(
+  password: string,
+  userInputs: string[] = []
+): PasswordAnalysis {
+  if (typeof password !== "string")
+    throw new TypeError("password must be a string");
   const context = userInputs
     .filter((input): input is string => typeof input === "string")
-    .map((input) => input.trim())
+    .map(input => input.trim())
     .filter(Boolean);
   return zxcvbn.check(password.slice(0, MAX_ANALYSIS_LENGTH), context);
 }

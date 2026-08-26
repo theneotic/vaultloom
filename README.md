@@ -6,14 +6,14 @@ Vaultloom is a privacy-first password workbench. It generates passwords locally 
 
 ## What is improved
 
-| Capability | Vaultloom behavior |
-|---|---|
-| Randomness | Uses `crypto.getRandomValues` and rejection sampling rather than modulo reduction alone. |
-| Generation | Guarantees every selected character family while excluding ambiguous glyphs. |
-| Analysis | Uses `zxcvbn-ts` to recognize common passwords, sequences, repeated patterns, keyboard walks, l33t substitutions, and dictionary-like terms. |
-| Privacy | Keeps candidate and generated passwords in React memory only; no requests are made to analyze them. |
-| Security language | Calls the output a guessability estimate, not a guarantee or literal entropy measurement. |
-| Quality controls | Includes Vitest checks for rejection sampling, generator invariants, and relative scorer behavior. |
+| Capability        | Vaultloom behavior                                                                                                                           |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Randomness        | Uses `crypto.getRandomValues` and rejection sampling rather than modulo reduction alone.                                                     |
+| Generation        | Guarantees every selected character family while excluding ambiguous glyphs.                                                                 |
+| Analysis          | Uses `zxcvbn-ts` to recognize common passwords, sequences, repeated patterns, keyboard walks, l33t substitutions, and dictionary-like terms. |
+| Privacy           | Keeps candidate and generated passwords in React memory only; no requests are made to analyze them.                                          |
+| Security language | Calls the output a guessability estimate, not a guarantee or literal entropy measurement.                                                    |
+| Quality controls  | Includes Vitest checks for rejection sampling, generator invariants, and relative scorer behavior.                                           |
 
 ## Local development
 

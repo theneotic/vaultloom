@@ -14,9 +14,27 @@ describe("decodeAttachment", () => {
   });
 
   it("rejects malformed, empty, and over-limit attachment data", () => {
-    expect(() => decodeAttachment({ name: "bad.txt", type: "text/plain", dataBase64: "not:base64" })).toThrow();
-    expect(() => decodeAttachment({ name: "empty.txt", type: "text/plain", dataBase64: "" })).toThrow();
+    expect(() =>
+      decodeAttachment({
+        name: "bad.txt",
+        type: "text/plain",
+        dataBase64: "not:base64",
+      })
+    ).toThrow();
+    expect(() =>
+      decodeAttachment({
+        name: "empty.txt",
+        type: "text/plain",
+        dataBase64: "",
+      })
+    ).toThrow();
     const tooLarge = Buffer.alloc(MAX_ATTACHMENT_BYTES + 1).toString("base64");
-    expect(() => decodeAttachment({ name: "large.txt", type: "text/plain", dataBase64: tooLarge })).toThrow();
+    expect(() =>
+      decodeAttachment({
+        name: "large.txt",
+        type: "text/plain",
+        dataBase64: tooLarge,
+      })
+    ).toThrow();
   });
 });

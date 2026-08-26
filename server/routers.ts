@@ -15,7 +15,7 @@ const attachmentSchema = z.object({
 });
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
+  // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -30,27 +30,36 @@ export const appRouter = router({
   vulnerabilityReports: router({
     /** Requires an authenticated reporter and rejects arbitrary executables, archives, and oversized evidence. */
     submit: protectedProcedure
-      .input(z.object({
-        title: z.string().trim().min(10).max(140),
-        severity: z.enum(["low", "medium", "high", "critical"]),
-        details: z.string().trim().min(40).max(12_000),
-        attachment: attachmentSchema.nullable(),
-      }))
+      .input(
+        z.object({
+          title: z.string().trim().min(10).max(140),
+          severity: z.enum(["low", "medium", "high", "critical"]),
+          details: z.string().trim().min(40).max(12_000),
+          attachment: attachmentSchema.nullable(),
+        })
+      )
       .mutation(async ({ ctx, input }) => {
-        if (/\b(password|recovery code|api key|access token|private key)\b/i.test(`${input.title}\n${input.details}`)) {
+        if (
+          /\b(password|recovery code|api key|access token|private key)\b/i.test(
+            `${input.title}\n${input.details}`
+          )
+        ) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: "Remove live passwords, recovery codes, keys, and tokens before submitting.",
+            message:
+              "Remove live passwords, recovery codes, keys, and tokens before submitting.",
           });
         }
 
-        const decoded = input.attachment ? decodeAttachment(input.attachment) : null;
+        const decoded = input.attachment
+          ? decodeAttachment(input.attachment)
+          : null;
         const uploaded = decoded
           ? await storagePut(
-            `vulnerability-reports/${ctx.user.id}/${crypto.randomUUID()}.${decoded.extension}`,
-            decoded.bytes,
-            decoded.type,
-          )
+              `vulnerability-reports/${ctx.user.id}/${crypto.randomUUID()}.${decoded.extension}`,
+              decoded.bytes,
+              decoded.type
+            )
           : null;
 
         const reportId = await createVulnerabilityReport({

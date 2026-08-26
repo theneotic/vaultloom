@@ -10,19 +10,23 @@ const assets = [
 ];
 
 if (!process.env.BLOB_READ_WRITE_TOKEN) {
-  throw new Error("BLOB_READ_WRITE_TOKEN must be set before seeding Vaultloom brand assets.");
+  throw new Error(
+    "BLOB_READ_WRITE_TOKEN must be set before seeding Vaultloom brand assets."
+  );
 }
 
-const uploaded = await Promise.all(assets.map(async ([source, destination]) => {
-  const bytes = await readFile(resolve(sourceRoot, source));
-  const blob = await put(destination, bytes, {
-    access: "public",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    contentType: "image/png",
-    token: process.env.BLOB_READ_WRITE_TOKEN,
-  });
-  return { destination, url: blob.url };
-}));
+const uploaded = await Promise.all(
+  assets.map(async ([source, destination]) => {
+    const bytes = await readFile(resolve(sourceRoot, source));
+    const blob = await put(destination, bytes, {
+      access: "public",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "image/png",
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
+    return { destination, url: blob.url };
+  })
+);
 
 console.table(uploaded);
