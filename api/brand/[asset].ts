@@ -10,7 +10,7 @@ function isBrandAsset(value: string): value is BrandAsset {
 function svgFor(asset: BrandAsset) {
   const shared = `xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Vaultloom ${asset}"`;
   if (asset === "mark") {
-    return `<svg ${shared} viewBox="0 0 96 96"><rect width="96" height="96" fill="#101217"/><rect x="10" y="10" width="76" height="76" fill="none" stroke="#275df5" stroke-width="5"/><rect x="25" y="30" width="10" height="38" fill="#94b2ff"/><rect x="43" y="40" width="10" height="28" fill="#78a0ff"/><rect x="61" y="49" width="10" height="19" fill="#5783ff"/></svg>`;
+    return `<svg ${shared}><rect width="640" height="360" fill="#101217"/><rect x="185" y="40" width="270" height="270" fill="none" stroke="#275df5" stroke-width="16"/><rect x="240" y="110" width="36" height="132" fill="#94b2ff"/><rect x="302" y="145" width="36" height="97" fill="#78a0ff"/><rect x="364" y="177" width="36" height="65" fill="#5783ff"/></svg>`;
   }
   if (asset === "texture") {
     return `<svg ${shared}><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111827"/><stop offset=".5" stop-color="#18264c"/><stop offset="1" stop-color="#101217"/></linearGradient><pattern id="grid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="#dbe7ff" stroke-opacity=".08"/></pattern></defs><rect width="640" height="360" fill="url(#g)"/><path d="M120 0L470 0 160 360H0Z" fill="#275df5" fill-opacity=".14"/><rect width="640" height="360" fill="url(#grid)"/></svg>`;
