@@ -14,7 +14,8 @@ function isPortAvailable(port: number): Promise<boolean> {
 }
 
 async function findAvailablePort(startPort = 3000): Promise<number> {
-  for (let port = startPort; port < startPort + 20; port++) if (await isPortAvailable(port)) return port;
+  for (let port = startPort; port < startPort + 20; port++)
+    if (await isPortAvailable(port)) return port;
   throw new Error(`No available port found starting from ${startPort}`);
 }
 
@@ -24,8 +25,12 @@ async function startServer() {
   if (process.env.NODE_ENV !== "production") registerStorageProxy(app);
   if (process.env.NODE_ENV === "development") await setupVite(app, server);
   else serveStatic(app);
-  const port = await findAvailablePort(Number.parseInt(process.env.PORT || "3000", 10));
-  server.listen(port, () => console.log(`Server running on http://localhost:${port}/`));
+  const port = await findAvailablePort(
+    Number.parseInt(process.env.PORT || "3000", 10)
+  );
+  server.listen(port, () =>
+    console.log(`Server running on http://localhost:${port}/`)
+  );
 }
 
 startServer().catch(console.error);

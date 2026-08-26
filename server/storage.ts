@@ -7,7 +7,9 @@ function normalizeKey(relKey: string) {
 function appendHashSuffix(relKey: string) {
   const hash = crypto.randomUUID().replace(/-/g, "").slice(0, 8);
   const lastDot = relKey.lastIndexOf(".");
-  return lastDot === -1 ? `${relKey}_${hash}` : `${relKey.slice(0, lastDot)}_${hash}${relKey.slice(lastDot)}`;
+  return lastDot === -1
+    ? `${relKey}_${hash}`
+    : `${relKey.slice(0, lastDot)}_${hash}${relKey.slice(lastDot)}`;
 }
 
 function getBlobToken() {
@@ -16,7 +18,11 @@ function getBlobToken() {
   return token;
 }
 
-export async function storagePut(relKey: string, data: Buffer | Uint8Array | string, contentType = "application/octet-stream") {
+export async function storagePut(
+  relKey: string,
+  data: Buffer | Uint8Array | string,
+  contentType = "application/octet-stream"
+) {
   const body = typeof data === "string" ? data : Buffer.from(data);
   const blob = await put(appendHashSuffix(normalizeKey(relKey)), body, {
     access: "private",

@@ -74,12 +74,20 @@
 }
 
 @layer base {
-  * { @apply border-border outline-ring/50; }
-  html { scroll-behavior: smooth; }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: "Space Grotesk", system-ui, sans-serif;
-    background-image: radial-gradient(circle at 75% 0%, rgba(39, 93, 245, 0.12), transparent 28rem);
+    background-image: radial-gradient(
+      circle at 75% 0%,
+      rgba(39, 93, 245, 0.12),
+      transparent 28rem
+    );
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -89,12 +97,18 @@
   a[href],
   select:not(:disabled),
   input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) { @apply cursor-pointer; }
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
 }
 
 @layer utilities {
-  .font-display { font-family: "Space Grotesk", system-ui, sans-serif; }
-  .font-mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
+  .font-display {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+  }
+  .font-mono {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  }
 }
 
 /* Deployment-safe visual primitives: no remote image request is required for the visible brand system. */
@@ -103,80 +117,250 @@
   display: inline-block;
   border: 2px solid #275df5;
   color: #78a0ff;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
 .cipher-vaultloom-mark > span {
   position: absolute;
   bottom: 20%;
   width: 15%;
   border: 1px solid currentColor;
-  background: linear-gradient(180deg, rgba(148,178,255,0.95), rgba(39,93,245,0.25));
+  background: linear-gradient(
+    180deg,
+    rgba(148, 178, 255, 0.95),
+    rgba(39, 93, 245, 0.25)
+  );
 }
-.cipher-vaultloom-mark > span:nth-child(1) { left: 20%; height: 58%; }
-.cipher-vaultloom-mark > span:nth-child(2) { left: 42.5%; height: 42%; }
-.cipher-vaultloom-mark > span:nth-child(3) { left: 65%; height: 26%; }
+.cipher-vaultloom-mark > span:nth-child(1) {
+  left: 20%;
+  height: 58%;
+}
+.cipher-vaultloom-mark > span:nth-child(2) {
+  left: 42.5%;
+  height: 42%;
+}
+.cipher-vaultloom-mark > span:nth-child(3) {
+  left: 65%;
+  height: 26%;
+}
 .cipher-header-texture {
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(83,124,255,0.22), transparent 25%),
-    linear-gradient(135deg, transparent 0 44%, rgba(39,93,245,0.12) 44% 46%, transparent 46% 100%),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px);
-  background-size: auto, auto, 22px 22px, 22px 22px;
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(83, 124, 255, 0.22),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0 44%,
+      rgba(39, 93, 245, 0.12) 44% 46%,
+      transparent 46% 100%
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    22px 22px,
+    22px 22px;
 }
 .cipher-generator-field {
   background-image:
-    radial-gradient(circle at 80% 18%, rgba(70,118,255,0.52), transparent 18%),
-    linear-gradient(135deg, transparent 0 38%, rgba(39,93,245,0.25) 38% 41%, transparent 41% 100%),
-    linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: auto, auto, 18px 18px, 18px 18px;
+    radial-gradient(
+      circle at 80% 18%,
+      rgba(70, 118, 255, 0.52),
+      transparent 18%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0 38%,
+      rgba(39, 93, 245, 0.25) 38% 41%,
+      transparent 41% 100%
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    18px 18px,
+    18px 18px;
   opacity: 0.8;
 }
 
 /* Light mode keeps workbench paper surfaces while converting application chrome for daytime use. */
-html:not(.dark) .cipher-page { background-color: #eeeae0; color: #151619; }
-html:not(.dark) .cipher-header { background-color: #151619; color: #f5f1e8; border-color: rgba(255, 255, 255, 0.12); }
-html:not(.dark) .cipher-public-hero { background-color: #151619; color: #f5f1e8; }
-html:not(.dark) .cipher-footer, html:not(.dark) .cipher-sidebar { background-color: #f7f4ec; color: #151619; border-color: rgba(21, 22, 25, 0.15); }
-html:not(.dark) .cipher-header [class*="text-white"] { color: #f5f1e8 !important; }
-html:not(.dark) .cipher-public-hero [class*="text-white"] { color: #f5f1e8 !important; }
-html:not(.dark) .cipher-footer [class*="text-white"], html:not(.dark) .cipher-sidebar [class*="text-white"] { color: #151619 !important; }
-html:not(.dark) .cipher-header [class*="text-[#94b2ff]"] { color: #94b2ff !important; }
-html:not(.dark) .cipher-footer [class*="text-[#94b2ff]"], html:not(.dark) .cipher-sidebar [class*="text-[#94b2ff]"] { color: #1747ca !important; }
-html:not(.dark) .cipher-footer a:hover, html:not(.dark) .cipher-header a:hover { color: #275df5 !important; }
-html:not(.dark) .cipher-header .bg-\[\#275df5\] { color: white !important; }
+html:not(.dark) .cipher-page {
+  background-color: #eeeae0;
+  color: #151619;
+}
+html:not(.dark) .cipher-header {
+  background-color: #151619;
+  color: #f5f1e8;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+html:not(.dark) .cipher-public-hero {
+  background-color: #151619;
+  color: #f5f1e8;
+}
+html:not(.dark) .cipher-footer,
+html:not(.dark) .cipher-sidebar {
+  background-color: #f7f4ec;
+  color: #151619;
+  border-color: rgba(21, 22, 25, 0.15);
+}
+html:not(.dark) .cipher-header [class*="text-white"] {
+  color: #f5f1e8 !important;
+}
+html:not(.dark) .cipher-public-hero [class*="text-white"] {
+  color: #f5f1e8 !important;
+}
+html:not(.dark) .cipher-footer [class*="text-white"],
+html:not(.dark) .cipher-sidebar [class*="text-white"] {
+  color: #151619 !important;
+}
+html:not(.dark) .cipher-header [class*="text-[#94b2ff]"] {
+  color: #94b2ff !important;
+}
+html:not(.dark) .cipher-footer [class*="text-[#94b2ff]"],
+html:not(.dark) .cipher-sidebar [class*="text-[#94b2ff]"] {
+  color: #1747ca !important;
+}
+html:not(.dark) .cipher-footer a:hover,
+html:not(.dark) .cipher-header a:hover {
+  color: #275df5 !important;
+}
+html:not(.dark) .cipher-header .bg-\[\#275df5\] {
+  color: white !important;
+}
 
 /* Dark mode is deliberately full-surface: every paper workspace, report control, and public content panel has a coherent ink treatment. */
-html.dark .cipher-page { background-color: #0b0f15; color: #eef3fb; }
-html.dark .cipher-workspace, html.dark .cipher-public-workspace { background: #0f1620; color: #eaf0f8; }
-html.dark .cipher-panel, html.dark .cipher-public-surface { background: #18212d; color: #edf3fb; border-color: rgba(202, 218, 241, 0.18); box-shadow: 6px 6px 0 #070a0f; }
-html.dark .cipher-panel [class*="text-black"], html.dark .cipher-public-surface [class*="text-black"], html.dark .cipher-report-form [class*="text-black"], html.dark .cipher-report-notice [class*="text-black"] { color: rgba(234, 240, 248, 0.72) !important; }
-html.dark .cipher-panel [class*="border-black"], html.dark .cipher-public-surface [class*="border-black"], html.dark .cipher-report-form [class*="border-black"] { border-color: rgba(202, 218, 241, 0.2) !important; }
-html.dark .cipher-panel [class*="bg-white"], html.dark .cipher-public-surface [class*="bg-white"], html.dark .cipher-report-form [class*="bg-white"] { background-color: #111923 !important; color: #edf3fb !important; }
-html.dark .cipher-panel input, html.dark .cipher-panel select, html.dark .cipher-panel textarea, html.dark .cipher-report-form input, html.dark .cipher-report-form select, html.dark .cipher-report-form textarea { background-color: #101720 !important; color: #eef3fb !important; border-color: rgba(202, 218, 241, 0.22) !important; }
-html.dark .cipher-panel input::placeholder, html.dark .cipher-report-form input::placeholder, html.dark .cipher-report-form textarea::placeholder { color: rgba(220, 230, 244, 0.42) !important; }
-html.dark .cipher-report-notice { background: #16243b !important; color: #edf3fb; }
-html.dark .cipher-report-notice [class*="text-\[\#1747ca\]"], html.dark .cipher-report-notice [class*="text-black"] { color: #a9c4ff !important; }
-html.dark .cipher-warning, html.dark .cipher-report-warning { background: #332612 !important; color: #fff2c9; }
-html.dark .cipher-warning [class*="text-amber"], html.dark .cipher-report-warning [class*="text-amber"] { color: #fbd38d !important; }
-html.dark .cipher-warning [class*="text-black"], html.dark .cipher-report-warning [class*="text-black"] { color: rgba(255, 242, 201, 0.78) !important; }
-html.dark .cipher-report-success { background: #102f2a !important; color: #e5fff4; }
-html.dark .cipher-report-success [class*="text-emerald"] { color: #a7f3d0 !important; }
-html.dark .cipher-report-success [class*="text-black"] { color: rgba(229, 255, 244, 0.78) !important; }
-html.dark .cipher-panel .bg-\[\#d8d1bf\] { background-color: #2b3542 !important; color: #dce7f7 !important; }
-html.dark .cipher-panel .bg-\[\#e8eeff\] { background-color: #1c315e !important; color: #c7d8ff !important; }
-html.dark .cipher-panel .bg-emerald-50 { background-color: #102e29 !important; color: #a7f3d0 !important; }
-html.dark .cipher-footer, html.dark .cipher-sidebar { background-color: #0b0f15 !important; border-color: rgba(202, 218, 241, 0.14); }
+html.dark .cipher-page {
+  background-color: #0b0f15;
+  color: #eef3fb;
+}
+html.dark .cipher-workspace,
+html.dark .cipher-public-workspace {
+  background: #0f1620;
+  color: #eaf0f8;
+}
+html.dark .cipher-panel,
+html.dark .cipher-public-surface {
+  background: #18212d;
+  color: #edf3fb;
+  border-color: rgba(202, 218, 241, 0.18);
+  box-shadow: 6px 6px 0 #070a0f;
+}
+html.dark .cipher-panel [class*="text-black"],
+html.dark .cipher-public-surface [class*="text-black"],
+html.dark .cipher-report-form [class*="text-black"],
+html.dark .cipher-report-notice [class*="text-black"] {
+  color: rgba(234, 240, 248, 0.72) !important;
+}
+html.dark .cipher-panel [class*="border-black"],
+html.dark .cipher-public-surface [class*="border-black"],
+html.dark .cipher-report-form [class*="border-black"] {
+  border-color: rgba(202, 218, 241, 0.2) !important;
+}
+html.dark .cipher-panel [class*="bg-white"],
+html.dark .cipher-public-surface [class*="bg-white"],
+html.dark .cipher-report-form [class*="bg-white"] {
+  background-color: #111923 !important;
+  color: #edf3fb !important;
+}
+html.dark .cipher-panel input,
+html.dark .cipher-panel select,
+html.dark .cipher-panel textarea,
+html.dark .cipher-report-form input,
+html.dark .cipher-report-form select,
+html.dark .cipher-report-form textarea {
+  background-color: #101720 !important;
+  color: #eef3fb !important;
+  border-color: rgba(202, 218, 241, 0.22) !important;
+}
+html.dark .cipher-panel input::placeholder,
+html.dark .cipher-report-form input::placeholder,
+html.dark .cipher-report-form textarea::placeholder {
+  color: rgba(220, 230, 244, 0.42) !important;
+}
+html.dark .cipher-report-notice {
+  background: #16243b !important;
+  color: #edf3fb;
+}
+html.dark .cipher-report-notice [class*="text-\[\#1747ca\]"],
+html.dark .cipher-report-notice [class*="text-black"] {
+  color: #a9c4ff !important;
+}
+html.dark .cipher-warning,
+html.dark .cipher-report-warning {
+  background: #332612 !important;
+  color: #fff2c9;
+}
+html.dark .cipher-warning [class*="text-amber"],
+html.dark .cipher-report-warning [class*="text-amber"] {
+  color: #fbd38d !important;
+}
+html.dark .cipher-warning [class*="text-black"],
+html.dark .cipher-report-warning [class*="text-black"] {
+  color: rgba(255, 242, 201, 0.78) !important;
+}
+html.dark .cipher-report-success {
+  background: #102f2a !important;
+  color: #e5fff4;
+}
+html.dark .cipher-report-success [class*="text-emerald"] {
+  color: #a7f3d0 !important;
+}
+html.dark .cipher-report-success [class*="text-black"] {
+  color: rgba(229, 255, 244, 0.78) !important;
+}
+html.dark .cipher-panel .bg-\[\#d8d1bf\] {
+  background-color: #2b3542 !important;
+  color: #dce7f7 !important;
+}
+html.dark .cipher-panel .bg-\[\#e8eeff\] {
+  background-color: #1c315e !important;
+  color: #c7d8ff !important;
+}
+html.dark .cipher-panel .bg-emerald-50 {
+  background-color: #102e29 !important;
+  color: #a7f3d0 !important;
+}
+html.dark .cipher-footer,
+html.dark .cipher-sidebar {
+  background-color: #0b0f15 !important;
+  border-color: rgba(202, 218, 241, 0.14);
+}
 
 @media (max-width: 640px) {
-  .cipher-header, .cipher-public-hero { border-left-width: 4px; }
-  .cipher-workspace, .cipher-public-workspace { padding-bottom: 2.5rem; }
-  .cipher-panel, .cipher-public-surface { min-width: 0; }
-  .cipher-panel .font-mono { letter-spacing: 0.04em; }
-  .cipher-footer { border-left-width: 4px; }
+  .cipher-header,
+  .cipher-public-hero {
+    border-left-width: 4px;
+  }
+  .cipher-workspace,
+  .cipher-public-workspace {
+    padding-bottom: 2.5rem;
+  }
+  .cipher-panel,
+  .cipher-public-surface {
+    min-width: 0;
+  }
+  .cipher-panel .font-mono {
+    letter-spacing: 0.04em;
+  }
+  .cipher-footer {
+    border-left-width: 4px;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a, button, input { transition: color 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 160ms cubic-bezier(0.23, 1, 0.32, 1), border-color 160ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
-  button:active { transform: scale(0.98); }
+  a,
+  button,
+  input {
+    transition:
+      color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+      background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+      border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  button:active {
+    transform: scale(0.98);
+  }
 }

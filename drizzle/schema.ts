@@ -1,4 +1,11 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import {
+  int,
+  mysqlEnum,
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -33,14 +40,22 @@ export const vulnerabilityReports = mysqlTable("vulnerability_reports", {
   id: int("id").autoincrement().primaryKey(),
   reporterUserId: int("reporterUserId").notNull(),
   title: varchar("title", { length: 140 }).notNull(),
-  severity: mysqlEnum("severity", ["low", "medium", "high", "critical"]).notNull(),
+  severity: mysqlEnum("severity", [
+    "low",
+    "medium",
+    "high",
+    "critical",
+  ]).notNull(),
   details: text("details").notNull(),
   attachmentKey: varchar("attachmentKey", { length: 512 }),
   attachmentName: varchar("attachmentName", { length: 128 }),
   attachmentMimeType: varchar("attachmentMimeType", { length: 100 }),
   attachmentBytes: int("attachmentBytes"),
-  status: mysqlEnum("status", ["submitted", "reviewing", "resolved"]).default("submitted").notNull(),
+  status: mysqlEnum("status", ["submitted", "reviewing", "resolved"])
+    .default("submitted")
+    .notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
-export type InsertVulnerabilityReport = typeof vulnerabilityReports.$inferInsert;
+export type InsertVulnerabilityReport =
+  typeof vulnerabilityReports.$inferInsert;

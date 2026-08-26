@@ -5,7 +5,11 @@ type Theme = "light" | "dark";
 export const THEME_STORAGE_KEY = "vaultloom-theme";
 const LEGACY_THEME_STORAGE_KEY = "slaysecure-theme";
 
-export function resolveThemePreference(stored: string | null, systemPrefersDark: boolean, fallback: Theme): Theme {
+export function resolveThemePreference(
+  stored: string | null,
+  systemPrefersDark: boolean,
+  fallback: Theme
+): Theme {
   if (stored === "light" || stored === "dark") return stored;
   if (typeof stored === "string") return fallback;
   return systemPrefersDark ? "dark" : "light";
@@ -37,8 +41,14 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === "undefined") return defaultTheme;
     if (switchable) {
-      const stored = localStorage.getItem(THEME_STORAGE_KEY) ?? localStorage.getItem(LEGACY_THEME_STORAGE_KEY);
-      return resolveThemePreference(stored, window.matchMedia("(prefers-color-scheme: dark)").matches, defaultTheme);
+      const stored =
+        localStorage.getItem(THEME_STORAGE_KEY) ??
+        localStorage.getItem(LEGACY_THEME_STORAGE_KEY);
+      return resolveThemePreference(
+        stored,
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
+        defaultTheme
+      );
     }
     return defaultTheme;
   });
@@ -59,13 +69,13 @@ export function ThemeProvider({
   }, [theme, switchable]);
 
   const toggleTheme = switchable
-      ? () => {
+    ? () => {
         setTheme(nextTheme);
       }
     : undefined;
 
   return (
-      <ThemeContext.Provider value={{ theme, toggleTheme, switchable }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, switchable }}>
       {children}
     </ThemeContext.Provider>
   );

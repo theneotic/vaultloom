@@ -14,12 +14,23 @@ const GITHUB_EMAILS_URL = "https://api.github.com/user/emails";
 const OAUTH_STATE_COOKIE = "vaultloom_github_oauth_state";
 const OAUTH_STATE_TTL_MS = 10 * 60 * 1000;
 
-type GitHubTokenResponse = { access_token?: string; error?: string; error_description?: string };
-type GitHubUser = { id: number; login: string; name: string | null; email: string | null };
+type GitHubTokenResponse = {
+  access_token?: string;
+  error?: string;
+  error_description?: string;
+};
+type GitHubUser = {
+  id: number;
+  login: string;
+  name: string | null;
+  email: string | null;
+};
 type GitHubEmail = { email: string; primary: boolean; verified: boolean };
 type SessionPayload = { openId: string; name: string };
 
-function getRequiredEnv(name: "AUTH_SECRET" | "GITHUB_CLIENT_ID" | "GITHUB_CLIENT_SECRET") {
+function getRequiredEnv(
+  name: "AUTH_SECRET" | "GITHUB_CLIENT_ID" | "GITHUB_CLIENT_SECRET"
+) {
   const value = process.env[name];
   if (!value) throw new Error(`${name} is not configured`);
   return value;
@@ -27,9 +38,10 @@ function getRequiredEnv(name: "AUTH_SECRET" | "GITHUB_CLIENT_ID" | "GITHUB_CLIEN
 
 function getRequestOrigin(req: Request) {
   const forwardedProto = req.headers["x-forwarded-proto"];
-  const protocol = typeof forwardedProto === "string"
-    ? forwardedProto.split(",")[0].trim()
-    : req.protocol || "https";
+  const protocol =
+    typeof forwardedProto === "string"
+      ? forwardedProto.split(",")[0].trim()
+      : req.protocol || "https";
   const host = req.headers.host;
   if (!host) throw new Error("Request host is missing");
   return `${protocol}://${host}`;
@@ -38,7 +50,10 @@ function getRequestOrigin(req: Request) {
 function secureEquals(left: string, right: string) {
   const leftBytes = Buffer.from(left);
   const rightBytes = Buffer.from(right);
-  return leftBytes.length === rightBytes.length && timingSafeEqual(leftBytes, rightBytes);
+  return (
+    leftBytes.length === rightBytes.length &&
+    timingSafeEqual(leftBytes, rightBytes)
+  );
 }
 
 function oauthStateCookieOptions(req: Request) {
@@ -61,12 +76,17 @@ async function createSessionToken(payload: SessionPayload) {
     .sign(secret);
 }
 
-async function readSessionToken(token: string | undefined): Promise<SessionPayload | null> {
+async function readSessionToken(
+  token: string | undefined
+): Promise<SessionPayload | null> {
   if (!token || !process.env.AUTH_SECRET) return null;
   try {
     const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
-    const { payload } = await jwtVerify(token, secret, { algorithms: ["HS256"] });
-    if (typeof payload.openId !== "string" || typeof payload.name !== "string") return null;
+    const { payload } = await jwtVerify(token, secret, {
+      algorithms: ["HS256"],
+    });
+    if (typeof payload.openId !== "string" || typeof payload.name !== "string")
+      return null;
     return { openId: payload.openId, name: payload.name };
   } catch {
     return null;
@@ -91,22 +111,36 @@ async function githubRequest<T>(url: string, accessToken: string): Promise<T> {
       "User-Agent": "Vaultloom",
     },
   });
-  if (!response.ok) throw new Error(`GitHub profile request failed (${response.status})`);
+  if (!response.ok)
+    throw new Error(`GitHub profile request failed (${response.status})`);
   return response.json() as Promise<T>;
 }
 
 async function getPrimaryEmail(accessToken: string, profile: GitHubUser) {
   if (profile.email) return profile.email;
-  const emails = await githubRequest<GitHubEmail[]>(GITHUB_EMAILS_URL, accessToken);
-  return emails.find(email => email.primary && email.verified)?.email
-    ?? emails.find(email => email.verified)?.email
-    ?? null;
+  const emails = await githubRequest<GitHubEmail[]>(
+    GITHUB_EMAILS_URL,
+    accessToken
+  );
+  return (
+    emails.find(email => email.primary && email.verified)?.email ??
+    emails.find(email => email.verified)?.email ??
+    null
+  );
 }
 
 export function registerGitHubOAuthRoutes(app: Express) {
   app.get("/api/auth/github/login", (req, res) => {
-    if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET || !process.env.AUTH_SECRET) {
-      res.status(503).json({ error: "GitHub sign-in is not configured for this deployment." });
+    if (
+      !process.env.GITHUB_CLIENT_ID ||
+      !process.env.GITHUB_CLIENT_SECRET ||
+      !process.env.AUTH_SECRET
+    ) {
+      res
+        .status(503)
+        .json({
+          error: "GitHub sign-in is not configured for this deployment.",
+        });
       return;
     }
     const state = crypto.randomUUID();
@@ -121,10 +155,19 @@ export function registerGitHubOAuthRoutes(app: Express) {
   });
 
   app.get("/api/auth/github/callback", async (req: Request, res: Response) => {
-    const code = typeof req.query.code === "string" ? req.query.code : undefined;
-    const state = typeof req.query.state === "string" ? req.query.state : undefined;
-    const expectedState = parseCookieHeader(req.headers.cookie ?? "")[OAUTH_STATE_COOKIE];
-    if (!code || !state || !expectedState || !secureEquals(state, expectedState)) {
+    const code =
+      typeof req.query.code === "string" ? req.query.code : undefined;
+    const state =
+      typeof req.query.state === "string" ? req.query.state : undefined;
+    const expectedState = parseCookieHeader(req.headers.cookie ?? "")[
+      OAUTH_STATE_COOKIE
+    ];
+    if (
+      !code ||
+      !state ||
+      !expectedState ||
+      !secureEquals(state, expectedState)
+    ) {
       res.status(403).json({ error: "Invalid GitHub OAuth state." });
       return;
     }
@@ -133,7 +176,10 @@ export function registerGitHubOAuthRoutes(app: Express) {
     try {
       const tokenResponse = await fetch(GITHUB_TOKEN_URL, {
         method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         body: new URLSearchParams({
           client_id: getRequiredEnv("GITHUB_CLIENT_ID"),
           client_secret: getRequiredEnv("GITHUB_CLIENT_SECRET"),
@@ -141,10 +187,18 @@ export function registerGitHubOAuthRoutes(app: Express) {
           redirect_uri: `${getRequestOrigin(req)}/api/auth/github/callback`,
         }),
       });
-      const token = await tokenResponse.json() as GitHubTokenResponse;
-      if (!tokenResponse.ok || !token.access_token) throw new Error(token.error_description ?? token.error ?? "GitHub token exchange failed");
+      const token = (await tokenResponse.json()) as GitHubTokenResponse;
+      if (!tokenResponse.ok || !token.access_token)
+        throw new Error(
+          token.error_description ??
+            token.error ??
+            "GitHub token exchange failed"
+        );
 
-      const profile = await githubRequest<GitHubUser>(GITHUB_USER_URL, token.access_token);
+      const profile = await githubRequest<GitHubUser>(
+        GITHUB_USER_URL,
+        token.access_token
+      );
       const openId = `github:${profile.id}`;
       const name = profile.name?.trim() || profile.login;
       await db.upsertUser({
@@ -157,7 +211,10 @@ export function registerGitHubOAuthRoutes(app: Express) {
       const user = await db.getUserByOpenId(openId);
       if (!user) throw new Error("The configured database is unavailable.");
       const session = await createSessionToken({ openId, name });
-      res.cookie(COOKIE_NAME, session, { ...getSessionCookieOptions(req), maxAge: ONE_YEAR_MS });
+      res.cookie(COOKIE_NAME, session, {
+        ...getSessionCookieOptions(req),
+        maxAge: ONE_YEAR_MS,
+      });
       res.redirect(302, "/contact");
     } catch (error) {
       console.error("[GitHub OAuth] Callback failed", error);

@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { nextTheme, resolveThemePreference, THEME_STORAGE_KEY } from "./ThemeContext";
+import {
+  nextTheme,
+  resolveThemePreference,
+  THEME_STORAGE_KEY,
+} from "./ThemeContext";
 
 describe("theme preference helpers", () => {
   it("keeps a stored explicit preference over the operating-system preference", () => {

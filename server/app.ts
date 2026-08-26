@@ -11,13 +11,20 @@ export function createApp(): Express {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.get("/api/brand/:asset", (req, res) => {
     const asset = req.params.asset;
-    if (!isBrandAsset(asset)) return res.status(404).json({ error: "Unknown brand asset." });
+    if (!isBrandAsset(asset))
+      return res.status(404).json({ error: "Unknown brand asset." });
     const location = getBrandAssetUrl(asset);
-    if (!location) return res.status(503).json({ error: "Brand image storage is not configured." });
+    if (!location)
+      return res
+        .status(503)
+        .json({ error: "Brand image storage is not configured." });
     res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
     return res.redirect(307, location);
   });
   registerGitHubOAuthRoutes(app);
-  app.use("/api/trpc", createExpressMiddleware({ router: appRouter, createContext }));
+  app.use(
+    "/api/trpc",
+    createExpressMiddleware({ router: appRouter, createContext })
+  );
   return app;
 }

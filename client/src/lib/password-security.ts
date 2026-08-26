@@ -32,8 +32,15 @@ function browserRandomValues(array: Uint32Array): Uint32Array {
  * Returns a uniform integer in [0, maxExclusive) using rejection sampling.
  * The injected random source supports deterministic verification without changing production behavior.
  */
-export function secureRandomInt(maxExclusive: number, randomValues: RandomValues = browserRandomValues): number {
-  if (!Number.isSafeInteger(maxExclusive) || maxExclusive <= 0 || maxExclusive > UINT32_RANGE) {
+export function secureRandomInt(
+  maxExclusive: number,
+  randomValues: RandomValues = browserRandomValues
+): number {
+  if (
+    !Number.isSafeInteger(maxExclusive) ||
+    maxExclusive <= 0 ||
+    maxExclusive > UINT32_RANGE
+  ) {
     throw new RangeError("maxExclusive must be an integer from 1 through 2^32");
   }
   const limit = Math.floor(UINT32_RANGE / maxExclusive) * maxExclusive;
@@ -44,8 +51,13 @@ export function secureRandomInt(maxExclusive: number, randomValues: RandomValues
   return sample[0] % maxExclusive;
 }
 
-export function generatePassword(length: number, selected: CharacterSet[]): string {
-  const uniqueSelected: CharacterSet[] = selected.filter((name, index) => selected.indexOf(name) === index);
+export function generatePassword(
+  length: number,
+  selected: CharacterSet[]
+): string {
+  const uniqueSelected: CharacterSet[] = selected.filter(
+    (name, index) => selected.indexOf(name) === index
+  );
   if (!Number.isInteger(length) || length < 12 || length > 64) {
     throw new RangeError("length must be an integer from 12 through 64");
   }
@@ -54,9 +66,12 @@ export function generatePassword(length: number, selected: CharacterSet[]): stri
     throw new RangeError("length must cover every selected character family");
   }
 
-  const permitted = uniqueSelected.map((name) => characterSets[name]).join("");
-  const output = uniqueSelected.map((name) => characterSets[name][secureRandomInt(characterSets[name].length)]);
-  while (output.length < length) output.push(permitted[secureRandomInt(permitted.length)]);
+  const permitted = uniqueSelected.map(name => characterSets[name]).join("");
+  const output = uniqueSelected.map(
+    name => characterSets[name][secureRandomInt(characterSets[name].length)]
+  );
+  while (output.length < length)
+    output.push(permitted[secureRandomInt(permitted.length)]);
 
   for (let index = output.length - 1; index > 0; index -= 1) {
     const swapIndex = secureRandomInt(index + 1);
@@ -66,8 +81,10 @@ export function generatePassword(length: number, selected: CharacterSet[]): stri
 }
 
 export function formatGuesses(guesses: number): string {
-  if (guesses >= 1_000_000_000_000) return `${(guesses / 1_000_000_000_000).toFixed(1)}T+`;
-  if (guesses >= 1_000_000_000) return `${(guesses / 1_000_000_000).toFixed(1)}B`;
+  if (guesses >= 1_000_000_000_000)
+    return `${(guesses / 1_000_000_000_000).toFixed(1)}T+`;
+  if (guesses >= 1_000_000_000)
+    return `${(guesses / 1_000_000_000).toFixed(1)}B`;
   if (guesses >= 1_000_000) return `${(guesses / 1_000_000).toFixed(1)}M`;
   if (guesses >= 1_000) return `${(guesses / 1_000).toFixed(1)}K`;
   return guesses.toLocaleString();
