@@ -124,12 +124,18 @@ export default function Home() {
           <div className="pointer-events-none absolute inset-0 opacity-40" style={{ backgroundImage: `url('${vaultloomAssets.texture}')`, backgroundSize: "cover" }} />
           <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[36%] border-l border-white/10 bg-[linear-gradient(135deg,transparent_0%,rgba(39,93,245,0.16)_52%,transparent_53%),linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:auto,22px_22px] lg:block" />
           <div className="relative max-w-6xl">
-            <div className="mb-7 flex items-start justify-between gap-3 border-b border-white/10 pb-5 sm:mb-8 sm:items-center sm:gap-4">
+            <div className="mb-7 border-b border-white/10 pb-4 sm:mb-8">
+              <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <img alt="Vaultloom glyph" className="h-9 w-9 object-contain" src={vaultloomAssets.mark} />
                 <span className="font-display text-base font-bold tracking-[-0.055em] text-white">[VAULT/LOOM]</span>
               </div>
-              <div className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-3 sm:flex-none sm:flex-nowrap sm:gap-4"><ThemeToggle /><nav aria-label="Primary navigation" className="order-3 flex w-full gap-4 overflow-x-auto border-t border-white/10 pt-3 font-mono text-[9px] uppercase tracking-[0.13em] text-white/70 sm:order-none sm:w-auto sm:gap-5 sm:border-0 sm:pt-0 sm:text-[10px] sm:tracking-[0.15em]"><Link className="shrink-0 hover:text-[#94b2ff]" href="/about">About</Link><Link className="shrink-0 hover:text-[#94b2ff]" href="/contact">Contact</Link><Link className="shrink-0 hover:text-[#94b2ff]" href="/privacy">Privacy</Link><Link className="shrink-0 hover:text-[#94b2ff]" href="/terms">Terms</Link></nav></div>
+                <ThemeToggle />
+              </div>
+              <nav aria-label="Primary navigation" className="mt-3 grid grid-cols-5 gap-1 font-mono text-[9px] uppercase tracking-[0.08em] text-white/65 sm:flex sm:gap-2 sm:text-[11px] sm:tracking-[0.15em]">
+                <a aria-current="page" className="flex min-h-11 min-w-0 items-center justify-center border-b-2 border-[#275df5] bg-white/5 px-1 py-2 text-center text-[#b9ccff] sm:min-h-10 sm:shrink-0 sm:px-4 sm:py-3" href="#workbench">Workbench</a>
+                {[["About", "/about"], ["Contact", "/contact"], ["Privacy", "/privacy"], ["Terms", "/terms"]].map(([label, href]) => <Link className="flex min-h-11 min-w-0 items-center justify-center border-b-2 border-transparent px-1 py-2 text-center transition hover:border-white/30 hover:text-[#94b2ff] sm:min-h-10 sm:shrink-0 sm:px-4 sm:py-3" href={href} key={href}>{label}</Link>)}
+              </nav>
             </div>
             <div className="mb-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#94b2ff] lg:hidden">
               <img alt="" className="h-7 w-7 object-contain" src={vaultloomAssets.mark} /> VAULT/LOOM · Local workbench
@@ -144,6 +150,14 @@ export default function Home() {
         </header>
 
         <div className="cipher-workspace bg-[#eeeae0] px-4 py-6 text-[#151619] sm:px-10 sm:py-10 lg:px-14 lg:py-14">
+          <section aria-label="Workbench sequence" className="mb-7 grid max-w-6xl overflow-hidden border border-black/15 border-l-[5px] border-l-[#275df5] bg-[#f7f4ec] shadow-[6px_6px_0_#111318] sm:mb-10 sm:grid-cols-3 sm:shadow-[9px_9px_0_#111318]">
+            {[
+              ["01", "Analyze", "Check a candidate in this browser tab."],
+              ["02", "Interpret", "Read the pattern evidence and assumptions."],
+              ["03", "Generate", "Create a fresh candidate when you need one."],
+            ].map(([number, label, copy]) => <a className="group grid grid-cols-[2.25rem_1fr] gap-3 border-b border-black/10 px-4 py-4 last:border-b-0 hover:bg-[#e8eeff] sm:block sm:border-b-0 sm:border-r sm:px-5 sm:last:border-r-0" href={label === "Analyze" ? "#analyze" : label === "Generate" ? "#generate" : "#principles"} key={number}><span className="font-mono text-[10px] tracking-[0.18em] text-[#275df5] sm:block">{number}</span><div className="sm:mt-3"><p className="font-display text-sm font-bold">{label}</p><p className="mt-1 text-xs leading-5 text-black/60">{copy}</p></div></a>)}
+          </section>
+
           <section className="grid max-w-6xl gap-8 xl:grid-cols-[1.45fr_0.78fr]" id="analyze">
             <div className="cipher-panel border border-l-[5px] border-black/15 border-l-[#275df5] bg-[#f7f4ec] p-4 shadow-[6px_6px_0_#111318] sm:p-8 sm:shadow-[9px_9px_0_#111318]">
               <div className="flex flex-wrap items-start justify-between gap-4 border-b border-black/10 pb-6">

@@ -79,11 +79,20 @@
 
 # Vercel Functions migration
 
-- [ ] Extract the Express/tRPC application into a Vercel-compatible server entrypoint while preserving local development.
-- [ ] Replace Manus OAuth with Vercel-compatible authentication behavior for protected vulnerability reporting.
-- [ ] Replace the Manus storage proxy with Vercel-compatible public image delivery and server-side evidence storage.
-- [ ] Add Vercel build, API routing, SPA fallback, and required environment-variable configuration.
+- [x] Extract the Express/tRPC application into a Vercel-compatible server entrypoint while preserving local development.
+- [ ] Replace Manus OAuth with Vercel-compatible authentication behavior for protected vulnerability reporting (adapter implemented; live OAuth remains unconfigured and unverified).
+- [ ] Replace the Manus storage proxy with Vercel-compatible public image delivery and server-side evidence storage (adapter implemented; Blob remains unconfigured and unseeded).
+- [ ] Add Vercel build, API routing, SPA fallback, and required environment-variable configuration (build/routing implemented; live environment remains unconfigured).
 - [ ] Create the Vercel project first, then finalize GitHub OAuth callback URLs using the actual Vercel deployment domain.
 - [ ] Validate backend routes, protected reporting boundaries, image responses, local build, and Vercel deployment behavior.
 - [ ] Commit and push the completed Vercel migration under THE <sigmamale2951@gmail.com>, then verify GitHub attribution and CI.
 - [ ] Create the linked Vercel project and verify a live deployment without exposing secrets.
+- [ ] Obtain the GitHub OAuth credentials, Vercel Blob token/base URL, and external database URL required to configure the live Vercel deployment.
+- [ ] Seed the public Vercel Blob objects for the Vaultloom mark, texture, and generator artwork, then verify all images load from the deployed site.
+
+# Public-layout refinement
+
+- [x] Audit all public routes for structural hierarchy, navigation clarity, spacing, and responsive breakpoints.
+- [x] Refine the public workbench and content-page layouts for coherent desktop and phone presentation.
+- [x] Verify every public route at desktop and phone widths after the structural update.
+- [x] Retake desktop public-route screenshots after the final shared-header navigation update and record the verification.

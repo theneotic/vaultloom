@@ -1,7 +1,7 @@
 /* Cipher Atelier public page shell: clear identity, durable navigation, and support footer. */
 import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import ThemeToggle from "@/components/ThemeToggle";
 import { vaultloomAssets } from "@/lib/assets";
 
@@ -18,29 +18,38 @@ const navItems = [
   ["About", "/about"],
   ["Contact", "/contact"],
   ["Privacy", "/privacy"],
+  ["Terms", "/terms"],
 ] as const;
 
 export default function PublicPage({ eyebrow, ledger, title, lede, children }: PublicPageProps) {
+  const [location] = useLocation();
+
   return (
     <div className="cipher-page min-h-screen overflow-x-clip bg-[#101216] text-[#f5f1e8]">
       <header className="cipher-header border-b border-l-8 border-white/10 border-l-[#275df5] bg-[#0d0f13]">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-start justify-between gap-3 px-4 py-5 sm:items-center sm:gap-4 sm:px-10 lg:px-14">
-          <Link className="flex items-center gap-3" href="/">
+        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-10 sm:py-5 lg:px-14">
+          <div className="flex items-center justify-between gap-4">
+            <Link className="flex min-w-0 items-center gap-3" href="/">
             <img alt="Vaultloom glyph" className="h-11 w-11 object-contain" src={vaultloomAssets.mark} />
             <span className="font-display text-base font-bold tracking-[-0.055em] text-white">[VAULT/LOOM]</span>
-          </Link>
-          <div className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-3 sm:flex-none sm:flex-nowrap sm:gap-4"><ThemeToggle /><nav aria-label="Primary navigation" className="order-3 flex w-full gap-4 overflow-x-auto border-t border-white/10 pt-3 font-mono text-[9px] uppercase tracking-[0.13em] text-white/70 sm:order-none sm:w-auto sm:gap-x-6 sm:border-0 sm:pt-0 sm:text-[10px] sm:tracking-[0.15em]">
-              {navItems.map(([label, href]) => <Link className="shrink-0 transition hover:text-[#94b2ff]" href={href} key={href}>{label}</Link>)}
-            </nav></div>
+            </Link>
+            <ThemeToggle />
+          </div>
+          <nav aria-label="Primary navigation" className="mt-3 grid grid-cols-5 gap-1 border-t border-white/10 pt-2 font-mono text-[9px] uppercase tracking-[0.08em] text-white/65 sm:mt-4 sm:flex sm:gap-2 sm:text-[11px] sm:tracking-[0.15em]">
+            {navItems.map(([label, href]) => {
+              const isCurrent = location === href;
+              return <Link aria-current={isCurrent ? "page" : undefined} className={`flex min-h-11 min-w-0 items-center justify-center border-b-2 px-1 py-2 text-center transition sm:min-h-10 sm:shrink-0 sm:px-4 sm:py-3 ${isCurrent ? "border-[#275df5] bg-white/5 text-[#b9ccff]" : "border-transparent hover:border-white/30 hover:text-[#94b2ff]"}`} href={href} key={href}>{label}</Link>;
+            })}
+          </nav>
         </div>
       </header>
 
       <main>
         <section className="cipher-public-hero border-b border-l-8 border-white/10 border-l-[#275df5] bg-[linear-gradient(135deg,rgba(39,93,245,0.18),transparent_48%)] px-4 py-11 sm:px-10 sm:py-14 lg:px-14 lg:py-20">
           <div className="mx-auto max-w-6xl">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
               <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#94b2ff]">{eyebrow}</p>
-              <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/55"><span className="grid h-5 w-5 place-items-center border border-[#275df5] text-[#94b2ff]">{ledger.slice(-2)}</span>{ledger} · local record</p>
+              <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55 sm:tracking-[0.18em]"><span className="grid h-5 w-5 place-items-center border border-[#275df5] text-[#94b2ff]">{ledger.slice(-2)}</span>{ledger} · local record</p>
             </div>
             <h1 className="mt-5 max-w-4xl font-display text-[2.35rem] font-bold leading-[0.98] tracking-[-0.065em] text-white sm:text-6xl">{title}</h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-white/65">{lede}</p>
