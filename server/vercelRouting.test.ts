@@ -7,7 +7,8 @@ describe("Vercel routing", () => {
     const config = JSON.parse(readFileSync(resolve(import.meta.dirname, "../vercel.json"), "utf8")) as {
       rewrites: Array<{ source: string; destination: string }>;
     };
-    expect(config.rewrites[0]).toEqual({ source: "/api/:path*", destination: "/api/[...path]" });
+    expect(config.rewrites).toContainEqual({ source: "/api/:path*", destination: "/api/[...path]" });
     expect(config.functions).toHaveProperty("api/**/*.ts");
+    expect(config.rewrites).toContainEqual({ source: "/api/brand/:asset", destination: "/api/brand/[asset]" });
   });
 });

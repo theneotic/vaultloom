@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { getBrandAssetUrl, isBrandAsset } from "./brandAssets";
+import { getBrandAssetFallbackSvg, getBrandAssetUrl, isBrandAsset } from "./brandAssets";
 
 const originalEnvironment = { NODE_ENV: process.env.NODE_ENV, BLOB_PUBLIC_BASE_URL: process.env.BLOB_PUBLIC_BASE_URL };
 
@@ -27,5 +27,11 @@ describe("Vercel brand asset delivery", () => {
   it("rejects unknown route names before storage resolution", () => {
     expect(isBrandAsset("mark")).toBe(true);
     expect(isBrandAsset("../private-evidence")).toBe(false);
+  });
+
+  it("provides a self-contained SVG fallback for every public brand route", () => {
+    ["mark", "texture", "generatorArt"].forEach(asset => {
+      expect(getBrandAssetFallbackSvg(asset as "mark" | "texture" | "generatorArt")).toContain("<svg");
+    });
   });
 });

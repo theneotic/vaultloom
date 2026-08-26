@@ -4,6 +4,7 @@
   "buildCommand": "pnpm run build:vercel",
   "outputDirectory": "dist/public",
   "rewrites": [
+    { "source": "/api/brand/:asset", "destination": "/api/brand/[asset]" },
     { "source": "/api/:path*", "destination": "/api/[...path]" },
     { "source": "/about", "destination": "/index.html" },
     { "source": "/contact", "destination": "/index.html" },
@@ -11,6 +12,9 @@
     { "source": "/terms", "destination": "/index.html" }
   ],
   "functions": {
+    "api/brand/**/*.ts": {
+      "maxDuration": 30
+    },
     "api/**/*.ts": {
       "maxDuration": 30
     }
