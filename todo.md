@@ -69,5 +69,21 @@
 
 # Explicit user-attributed release commit
 
-- [ ] Commit and push the latest Vaultloom work with both author and committer set to THE <sigmamale2951@gmail.com>.
-- [ ] Verify GitHub associates the pushed commit with the theneotic account.
+- [x] Commit and push the latest Vaultloom work with both author and committer set to THE <sigmamale2951@gmail.com>.
+- [x] Verify GitHub associates the pushed commit with the theneotic account.
+
+# Vercel deployment assessment
+
+- [x] Assess Vaultloom’s current Vercel deployment compatibility and document any required runtime, environment, or routing changes.
+- [x] Document the Vercel compatibility verdict, required serverless routing changes, and Manus-specific runtime constraints.
+
+# Vercel Functions migration
+
+- [ ] Extract the Express/tRPC application into a Vercel-compatible server entrypoint while preserving local development.
+- [ ] Replace Manus OAuth with Vercel-compatible authentication behavior for protected vulnerability reporting.
+- [ ] Replace the Manus storage proxy with Vercel-compatible public image delivery and server-side evidence storage.
+- [ ] Add Vercel build, API routing, SPA fallback, and required environment-variable configuration.
+- [ ] Create the Vercel project first, then finalize GitHub OAuth callback URLs using the actual Vercel deployment domain.
+- [ ] Validate backend routes, protected reporting boundaries, image responses, local build, and Vercel deployment behavior.
+- [ ] Commit and push the completed Vercel migration under THE <sigmamale2951@gmail.com>, then verify GitHub attribution and CI.
+- [ ] Create the linked Vercel project and verify a live deployment without exposing secrets.

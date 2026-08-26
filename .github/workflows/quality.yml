@@ -36,6 +36,9 @@ jobs:
       - name: Build production bundle
         run: pnpm build
 
+      - name: Build Vercel deployment bundle
+        run: VERCEL=1 pnpm build:vercel
+
   container-build:
     name: Verify container build
     runs-on: ubuntu-latest
