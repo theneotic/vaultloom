@@ -11,4 +11,10 @@ describe("Vercel routing", () => {
     expect(config.functions).toHaveProperty("api/**/*.ts");
     expect(config.rewrites).toContainEqual({ source: "/api/brand/:asset", destination: "/api/brand/[asset]" });
   });
+
+  it("keeps the deployed brand function self-contained", () => {
+    const route = readFileSync(resolve(import.meta.dirname, "../api/brand/[asset].ts"), "utf8");
+    expect(route).not.toContain("../../server/");
+    expect(route).toContain("image/svg+xml");
+  });
 });
