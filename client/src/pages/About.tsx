@@ -17,7 +17,7 @@ export default function About() {
         <p className="mt-5 max-w-xl text-sm leading-7 text-black/70">Password quality is about more than counting character types. Vaultloom uses a realistic local estimator to surface recognizable patterns, then explains the evidence it found. It is designed to help users choose a unique password and place it in a trusted password manager.</p>
         <p className="mt-5 max-w-xl text-sm leading-7 text-black/70">The project is maintained by Aurelius as an open-source security learning project. It does not replace multi-factor authentication, breach monitoring, or the password policy enforced by the service where a password is used.</p>
       </div>
-      <div className="border-l-4 border-[#275df5] bg-[#151619] p-6 text-white">
+      <div className="cipher-public-callout border-l-4 border-[#275df5] bg-[#151619] p-6 text-white">
         <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#94b2ff]">How to use it</p>
         <ol className="mt-5 space-y-4 text-sm leading-6 text-white/70"><li><span className="mr-3 font-mono text-[#94b2ff]">01</span>Generate a unique candidate using the local generator.</li><li><span className="mr-3 font-mono text-[#94b2ff]">02</span>Inspect the score and pattern feedback before you reuse it anywhere.</li><li><span className="mr-3 font-mono text-[#94b2ff]">03</span>Save it in a password manager and enable multi-factor authentication where available.</li></ol>
       </div>

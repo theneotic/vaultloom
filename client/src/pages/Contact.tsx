@@ -10,7 +10,7 @@ export default function Contact() {
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#275df5]">Project support</p>
         <h2 className="mt-3 font-display text-3xl font-bold tracking-[-0.055em]">The repository is the public support channel.</h2>
         <p className="mt-5 max-w-xl text-sm leading-7 text-black/70">Open an issue for a reproducible bug, accessibility concern, documentation correction, or feature request. Repository access may be required because the project is private.</p>
-        <a className="mt-7 inline-flex items-center gap-2 bg-[#151619] px-5 py-3 font-display text-sm font-bold text-white transition hover:bg-[#275df5]" href="https://github.com/theneotic/vaultloom/issues" rel="noreferrer" target="_blank">Open project support <ArrowUpRight className="h-4 w-4" /></a>
+        <a className="cipher-contrast-action mt-7 inline-flex items-center gap-2 bg-[#151619] px-5 py-3 font-display text-sm font-bold text-white transition hover:bg-[#275df5]" href="https://github.com/theneotic/vaultloom/issues" rel="noreferrer" target="_blank">Open project support <ArrowUpRight className="h-4 w-4" /></a>
       </div>
       <aside className="cipher-warning border-l-4 border-amber-500 bg-[#fff5dd] p-5 sm:p-6">
         <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-amber-800"><ShieldAlert className="h-4 w-4" /> Security reporting boundary</div>

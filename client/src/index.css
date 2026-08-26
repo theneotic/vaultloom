@@ -133,18 +133,54 @@
   opacity: 0.8;
 }
 
-/* Light mode keeps workbench paper surfaces while converting application chrome for daytime use. */
+/* Light mode recolors the entire workbench; its existing geometry, type scale, and controls stay unchanged. */
 html:not(.dark) .cipher-page { background-color: #eeeae0; color: #151619; }
-html:not(.dark) .cipher-header { background-color: #151619; color: #f5f1e8; border-color: rgba(255, 255, 255, 0.12); }
-html:not(.dark) .cipher-public-hero { background-color: #151619; color: #f5f1e8; }
+html:not(.dark) .cipher-header, html:not(.dark) .cipher-public-hero { background-color: #eef2fb !important; color: #151619; border-color: rgba(21, 22, 25, 0.15); }
+html:not(.dark) .cipher-header-texture {
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(39, 93, 245, 0.18), transparent 25%),
+    linear-gradient(135deg, transparent 0 44%, rgba(39, 93, 245, 0.12) 44% 46%, transparent 46% 100%),
+    linear-gradient(90deg, rgba(21, 22, 25, 0.07) 1px, transparent 1px),
+    linear-gradient(rgba(21, 22, 25, 0.055) 1px, transparent 1px);
+}
+html:not(.dark) .cipher-header-art { border-color: rgba(21, 22, 25, 0.12) !important; background-image: linear-gradient(135deg, transparent 0%, rgba(39, 93, 245, 0.14) 52%, transparent 53%), linear-gradient(90deg, transparent 0%, rgba(21, 22, 25, 0.06) 1px, transparent 1px) !important; }
+html:not(.dark) .cipher-workspace, html:not(.dark) .cipher-public-workspace { background-color: #eeeae0; color: #151619; }
+html:not(.dark) .cipher-panel, html:not(.dark) .cipher-public-surface, html:not(.dark) .cipher-sequence { background-color: #f7f4ec; color: #151619; border-color: rgba(21, 22, 25, 0.15); }
+html:not(.dark) .cipher-panel, html:not(.dark) .cipher-public-surface, html:not(.dark) .cipher-sequence { box-shadow: 6px 6px 0 #111318; }
+html:not(.dark) .cipher-ink-panel, html:not(.dark) .cipher-analysis-meter, html:not(.dark) .cipher-generator-panel { background-color: #e8eeff; color: #151619; }
+html:not(.dark) .cipher-ink-panel [class*="text-white"], html:not(.dark) .cipher-analysis-meter [class*="text-white"], html:not(.dark) .cipher-generator-panel [class*="text-white"] { color: #151619 !important; }
+html:not(.dark) .cipher-ink-panel [class*="text-[#94b2ff]"], html:not(.dark) .cipher-ink-panel [class*="text-[#78a0ff]"], html:not(.dark) .cipher-generator-panel [class*="text-[#b9ccff]"] { color: #1747ca !important; }
+html:not(.dark) .cipher-ink-panel [class*="border-white"], html:not(.dark) .cipher-generator-panel [class*="border-white"] { border-color: rgba(21, 22, 25, 0.16) !important; }
+html:not(.dark) .cipher-public-callout { background-color: #e8eeff; color: #151619; }
+html:not(.dark) .cipher-public-callout [class*="text-white"] { color: #151619 !important; }
+html:not(.dark) .cipher-public-callout [class*="text-[#94b2ff]"] { color: #1747ca !important; }
+html:not(.dark) .cipher-analysis-meter [class*="bg-white/15"] { background-color: rgba(21, 22, 25, 0.14) !important; }
+html:not(.dark) .cipher-generator-field {
+  background-image:
+    radial-gradient(circle at 80% 18%, rgba(70, 118, 255, 0.28), transparent 18%),
+    linear-gradient(135deg, transparent 0 38%, rgba(39, 93, 245, 0.16) 38% 41%, transparent 41% 100%),
+    linear-gradient(90deg, rgba(21, 22, 25, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(21, 22, 25, 0.065) 1px, transparent 1px);
+}
 html:not(.dark) .cipher-footer, html:not(.dark) .cipher-sidebar { background-color: #f7f4ec; color: #151619; border-color: rgba(21, 22, 25, 0.15); }
-html:not(.dark) .cipher-header [class*="text-white"] { color: #f5f1e8 !important; }
-html:not(.dark) .cipher-public-hero [class*="text-white"] { color: #f5f1e8 !important; }
+html:not(.dark) .cipher-header [class*="text-white"], html:not(.dark) .cipher-public-hero [class*="text-white"] { color: #151619 !important; }
+html:not(.dark) .cipher-header [class*="border-white"], html:not(.dark) .cipher-public-hero [class*="border-white"] { border-color: rgba(21, 22, 25, 0.15) !important; }
+html:not(.dark) .cipher-header [class*="text-[#94b2ff]"], html:not(.dark) .cipher-public-hero [class*="text-[#94b2ff]"] { color: #1747ca !important; }
+html:not(.dark) .cipher-header [class*="text-[#b9ccff]"], html:not(.dark) .cipher-public-hero [class*="text-[#b9ccff]"] { color: #1747ca !important; }
 html:not(.dark) .cipher-footer [class*="text-white"], html:not(.dark) .cipher-sidebar [class*="text-white"] { color: #151619 !important; }
-html:not(.dark) .cipher-header [class*="text-[#94b2ff]"] { color: #94b2ff !important; }
 html:not(.dark) .cipher-footer [class*="text-[#94b2ff]"], html:not(.dark) .cipher-sidebar [class*="text-[#94b2ff]"] { color: #1747ca !important; }
-html:not(.dark) .cipher-footer a:hover, html:not(.dark) .cipher-header a:hover { color: #275df5 !important; }
+html:not(.dark) .cipher-footer a:hover, html:not(.dark) .cipher-header a:hover, html:not(.dark) .cipher-public-hero a:hover { color: #275df5 !important; }
 html:not(.dark) .cipher-header .bg-\[\#275df5\] { color: white !important; }
+html:not(.dark) .cipher-contrast-action { background-color: #275df5 !important; color: white !important; }
+html:not(.dark) .cipher-contrast-action:hover { background-color: #1747ca !important; color: white !important; }
+html:not(.dark) .cipher-report-field { background-color: #fffdfa !important; color: #151619; border-color: rgba(21, 22, 25, 0.2) !important; }
+html:not(.dark) .cipher-report-evidence { background-color: #fbfaf5 !important; border-color: rgba(21, 22, 25, 0.22) !important; }
+html:not(.dark) .cipher-report-outline-action { border-color: rgba(21, 22, 25, 0.22) !important; color: #151619; }
+html:not(.dark) .cipher-report-outline-action:hover { border-color: #275df5 !important; color: #1747ca; }
+html:not(.dark) .cipher-report-meta { color: rgba(21, 22, 25, 0.55) !important; }
+html:not(.dark) .cipher-report-form [class*="text-black"], html:not(.dark) .cipher-report-success [class*="text-black"], html:not(.dark) .cipher-report-warning [class*="text-black"] { color: rgba(21, 22, 25, 0.72) !important; }
+html:not(.dark) .cipher-report-form [class*="text-[#1747ca]"] { color: #1747ca !important; }
+html:not(.dark) .cipher-vaultloom-mark { color: #275df5; box-shadow: inset 0 0 0 1px rgba(21, 22, 25, 0.14); }
 
 /* Dark mode is deliberately full-surface: every paper workspace, report control, and public content panel has a coherent ink treatment. */
 html.dark .cipher-page { background-color: #0b0f15; color: #eef3fb; }
@@ -163,6 +199,10 @@ html.dark .cipher-warning [class*="text-black"], html.dark .cipher-report-warnin
 html.dark .cipher-report-success { background: #102f2a !important; color: #e5fff4; }
 html.dark .cipher-report-success [class*="text-emerald"] { color: #a7f3d0 !important; }
 html.dark .cipher-report-success [class*="text-black"] { color: rgba(229, 255, 244, 0.78) !important; }
+html.dark .cipher-report-evidence { background-color: #101720 !important; border-color: rgba(202, 218, 241, 0.22) !important; }
+html.dark .cipher-report-outline-action { border-color: rgba(202, 218, 241, 0.24) !important; color: #edf3fb; }
+html.dark .cipher-report-meta { color: rgba(220, 230, 244, 0.54) !important; }
+html.dark .cipher-report-form [class*="text-[#1747ca]"] { color: #a9c4ff !important; }
 html.dark .cipher-panel .bg-\[\#d8d1bf\] { background-color: #2b3542 !important; color: #dce7f7 !important; }
 html.dark .cipher-panel .bg-\[\#e8eeff\] { background-color: #1c315e !important; color: #c7d8ff !important; }
 html.dark .cipher-panel .bg-emerald-50 { background-color: #102e29 !important; color: #a7f3d0 !important; }

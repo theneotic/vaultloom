@@ -122,7 +122,7 @@ export default function Home() {
       <main className="lg:ml-[272px]" id="workbench">
         <header className="cipher-header relative overflow-hidden border-b border-l-8 border-white/10 border-l-[#275df5] px-4 py-7 sm:px-10 lg:px-14 lg:py-11">
           <div className="cipher-header-texture pointer-events-none absolute inset-0 opacity-70" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[36%] border-l border-white/10 bg-[linear-gradient(135deg,transparent_0%,rgba(39,93,245,0.16)_52%,transparent_53%),linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:auto,22px_22px] lg:block" />
+          <div className="cipher-header-art pointer-events-none absolute inset-y-0 right-0 hidden w-[36%] border-l border-white/10 bg-[linear-gradient(135deg,transparent_0%,rgba(39,93,245,0.16)_52%,transparent_53%),linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:auto,22px_22px] lg:block" />
           <div className="relative max-w-6xl">
             <div className="mb-7 border-b border-white/10 pb-4 sm:mb-8">
               <div className="flex items-center justify-between gap-4">
@@ -150,7 +150,7 @@ export default function Home() {
         </header>
 
         <div className="cipher-workspace bg-[#eeeae0] px-4 py-6 text-[#151619] sm:px-10 sm:py-10 lg:px-14 lg:py-14">
-          <section aria-label="Workbench sequence" className="mb-7 grid max-w-6xl overflow-hidden border border-black/15 border-l-[5px] border-l-[#275df5] bg-[#f7f4ec] shadow-[6px_6px_0_#111318] sm:mb-10 sm:grid-cols-3 sm:shadow-[9px_9px_0_#111318]">
+          <section aria-label="Workbench sequence" className="cipher-sequence mb-7 grid max-w-6xl overflow-hidden border border-black/15 border-l-[5px] border-l-[#275df5] bg-[#f7f4ec] shadow-[6px_6px_0_#111318] sm:mb-10 sm:grid-cols-3 sm:shadow-[9px_9px_0_#111318]">
             {[
               ["01", "Analyze", "Check a candidate in this browser tab."],
               ["02", "Interpret", "Read the pattern evidence and assumptions."],
@@ -189,7 +189,7 @@ export default function Home() {
               </div>
 
               <div className="mt-8 grid gap-7 lg:grid-cols-[0.95fr_1.05fr]">
-                <div className="border-l-4 border-[#275df5] bg-[#151619] p-5 text-white">
+                <div className="cipher-analysis-meter border-l-4 border-[#275df5] bg-[#151619] p-5 text-white">
                   <div className="flex items-baseline justify-between gap-3"><span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">Guessability estimate</span><span className={`font-display text-sm font-bold ${analysis ? analysisMeta.tone : "text-white/35"}`}>{analysis ? analysisMeta.label : "Waiting"}</span></div>
                   <div className="mt-7 flex items-end gap-4"><strong className="font-display text-6xl font-bold tracking-[-0.08em]">{analysis ? analysis.score : "—"}</strong><span className="mb-2 font-mono text-xs text-white/45">/ 4</span></div>
                   <div className="mt-6 grid grid-cols-5 gap-1.5" aria-label="Password strength scale">
@@ -224,7 +224,7 @@ export default function Home() {
                 <div className="mt-7 grid gap-6 md:grid-cols-[1fr_1fr]"><div><div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-black/55"><span>Length</span><span className="text-[#275df5]">{length} characters</span></div><input aria-label="Generated password length" className="mt-4 w-full accent-[#275df5]" max="64" min="12" onChange={(event) => setLength(Number(event.target.value))} step="1" type="range" value={length} /><div className="mt-2 flex justify-between font-mono text-[10px] text-black/40"><span>12</span><span>64</span></div></div><div className="grid grid-cols-2 gap-2">{(Object.keys(enabled) as CharacterSet[]).map((key) => <button className={`border px-3 py-3 text-left font-mono text-[10px] uppercase tracking-[0.1em] transition ${enabled[key] ? "border-[#275df5] bg-[#e8eeff] text-[#1747ca]" : "border-black/15 bg-white text-black/40 hover:border-black/40"}`} key={key} onClick={() => setEnabled((state) => ({ ...state, [key]: !state[key] }))} type="button"><span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-current" />{key}</button>)}</div></div>
                 <p className="mt-6 font-mono text-[10px] leading-5 tracking-[0.04em] text-black/50">GENERATOR NOTE — Uses Web Crypto and rejection sampling so each selected character index is uniformly mapped. Ambiguous glyphs are excluded to reduce transcription mistakes.</p>
               </div>
-              <div className="relative min-h-[280px] overflow-hidden bg-[#0f1216] p-6 text-white sm:p-8"><div className="cipher-generator-field absolute inset-0" /><div className="relative flex h-full flex-col justify-between"><div><span className="inline-flex items-center gap-2 border border-white/20 bg-black/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#b9ccff]"><Clipboard className="h-3.5 w-3.5" /> Generator protocol</span><h3 className="mt-5 max-w-sm font-display text-3xl font-bold leading-none tracking-[-0.055em]">A deliberate alternative to familiar, predictable choices.</h3></div><div className="border-t border-white/20 pt-5"><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">Selected families</p><p className="mt-2 font-display text-sm font-bold text-white">{activeSets.length ? activeSets.join(" · ") : "No families selected"}</p></div></div></div>
+              <div className="cipher-generator-panel relative min-h-[280px] overflow-hidden bg-[#0f1216] p-6 text-white sm:p-8"><div className="cipher-generator-field absolute inset-0" /><div className="relative flex h-full flex-col justify-between"><div><span className="inline-flex items-center gap-2 border border-white/20 bg-black/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#b9ccff]"><Clipboard className="h-3.5 w-3.5" /> Generator protocol</span><h3 className="mt-5 max-w-sm font-display text-3xl font-bold leading-none tracking-[-0.055em]">A deliberate alternative to familiar, predictable choices.</h3></div><div className="border-t border-white/20 pt-5"><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">Selected families</p><p className="mt-2 font-display text-sm font-bold text-white">{activeSets.length ? activeSets.join(" · ") : "No families selected"}</p></div></div></div>
             </div>
           </section>
         </div>

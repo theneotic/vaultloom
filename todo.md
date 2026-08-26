@@ -99,7 +99,18 @@
 
 # Deployed-image reliability
 
-- [ ] Inspect the actual deployed Vercel brand-image responses and record the failing status or error once the live URL is available.
+- [x] Inspect the actual deployed Vercel brand-image responses and record the failing status or error once the live URL is available.
 - [x] Add a deployment-safe brand-image fallback that does not require unseeded Blob configuration.
-- [ ] Verify all visible images resolve on the deployed site before closing the reliability issue.
+- [x] Verify all visible images resolve on the deployed site before closing the reliability issue.
 - [ ] Inspect https://vaultlooms.vercel.app/ directly at desktop and phone widths after the deployment-safe fallback commit.
+- [ ] Review every live public route at desktop width after the final SVG endpoint repair.
+- [ ] Review every live public route at phone width after the final SVG endpoint repair.
+
+# Full workbench theme repair
+
+- [x] Audit fixed dark workbench colors that prevent the light theme from changing the main analysis and generator surfaces.
+- [x] Refactor the workbench, navigation, and supporting panels to use coherent light and dark theme treatments.
+- [x] Preserve the existing layout, typography, spacing, and interactions while changing only theme color treatments.
+- [x] Recolor every authenticated reporting-form control and status panel without altering structure.
+- [ ] Capture and review both light and dark theme states for every public route at desktop and phone widths.
+- [ ] Commit and push the theme repair under THE <sigmamale2951@gmail.com>, then verify GitHub attribution and CI.
