@@ -8,5 +8,6 @@ describe("Vercel routing", () => {
       rewrites: Array<{ source: string; destination: string }>;
     };
     expect(config.rewrites[0]).toEqual({ source: "/api/:path*", destination: "/api/[...path]" });
+    expect(config.functions).toHaveProperty("api/**/*.ts");
   });
 });

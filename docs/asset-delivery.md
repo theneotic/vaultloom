@@ -13,3 +13,5 @@ For future artwork updates, upload source files from `/home/ubuntu/webdev-static
 ## Vercel live check — August 2026
 
 The live `https://vaultlooms.vercel.app/` homepage is serving the CSS-rendered Vaultloom glyph, header texture, and generator field successfully; these visible treatments no longer require a remote image request. The legacy `/api/brand/mark` path currently returns Vercel `404 NOT_FOUND`, which confirms the deployment is not registering the catch-all backend Function. This does not break the visible brand system after the fallback repair, but the API route must be fixed before authenticated reporting or Blob-backed uploads can operate on Vercel.
+
+After commit `0d3114c` added an explicit `/api/:path*` rewrite to `/api/[...path]`, the public endpoint still returned `404 NOT_FOUND` during the immediate live check. The deployed homepage continues to render because it no longer calls that endpoint. This indicates the Vercel project needs inspection for its deployment source/root-directory or function-discovery settings, rather than another client-image change.

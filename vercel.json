@@ -11,7 +11,7 @@
     { "source": "/terms", "destination": "/index.html" }
   ],
   "functions": {
-    "api/[...path].ts": {
+    "api/**/*.ts": {
       "maxDuration": 30
     }
   }
