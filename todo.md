@@ -96,3 +96,9 @@
 - [x] Refine the public workbench and content-page layouts for coherent desktop and phone presentation.
 - [x] Verify every public route at desktop and phone widths after the structural update.
 - [x] Retake desktop public-route screenshots after the final shared-header navigation update and record the verification.
+
+# Deployed-image reliability
+
+- [ ] Inspect the actual deployed Vercel brand-image responses and record the failing status or error once the live URL is available.
+- [x] Add a deployment-safe brand-image fallback that does not require unseeded Blob configuration.
+- [ ] Verify all visible images resolve on the deployed site before closing the reliability issue.

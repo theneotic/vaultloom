@@ -18,7 +18,7 @@ import {
 import { toast } from "sonner";
 import { Link } from "wouter";
 import ThemeToggle from "@/components/ThemeToggle";
-import { vaultloomAssets } from "@/lib/assets";
+import VaultloomMark from "@/components/VaultloomMark";
 import {
   formatGuesses,
   generatePassword,
@@ -92,7 +92,7 @@ export default function Home() {
       <aside className="cipher-sidebar hidden min-h-screen w-[272px] flex-col justify-between border-r border-white/10 bg-[#0b0d10] px-7 py-8 lg:fixed lg:inset-y-0 lg:left-0 lg:flex">
         <div>
           <a className="group flex items-center gap-3" href="#workbench" aria-label="Vaultloom home">
-            <img alt="Vaultloom mark" className="h-10 w-10 object-contain" src={vaultloomAssets.mark} />
+            <VaultloomMark className="h-10 w-10" label="Vaultloom mark" />
             <span className="font-display text-[17px] font-bold tracking-[-0.05em] text-white">VAULT/LOOM</span>
           </a>
           <div className="mt-16">
@@ -121,13 +121,13 @@ export default function Home() {
 
       <main className="lg:ml-[272px]" id="workbench">
         <header className="cipher-header relative overflow-hidden border-b border-l-8 border-white/10 border-l-[#275df5] px-4 py-7 sm:px-10 lg:px-14 lg:py-11">
-          <div className="pointer-events-none absolute inset-0 opacity-40" style={{ backgroundImage: `url('${vaultloomAssets.texture}')`, backgroundSize: "cover" }} />
+          <div className="cipher-header-texture pointer-events-none absolute inset-0 opacity-70" />
           <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[36%] border-l border-white/10 bg-[linear-gradient(135deg,transparent_0%,rgba(39,93,245,0.16)_52%,transparent_53%),linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:auto,22px_22px] lg:block" />
           <div className="relative max-w-6xl">
             <div className="mb-7 border-b border-white/10 pb-4 sm:mb-8">
               <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <img alt="Vaultloom glyph" className="h-9 w-9 object-contain" src={vaultloomAssets.mark} />
+                <VaultloomMark className="h-9 w-9" label="Vaultloom glyph" />
                 <span className="font-display text-base font-bold tracking-[-0.055em] text-white">[VAULT/LOOM]</span>
               </div>
                 <ThemeToggle />
@@ -138,7 +138,7 @@ export default function Home() {
               </nav>
             </div>
             <div className="mb-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#94b2ff] lg:hidden">
-              <img alt="" className="h-7 w-7 object-contain" src={vaultloomAssets.mark} /> VAULT/LOOM · Local workbench
+              <VaultloomMark className="h-7 w-7" /> VAULT/LOOM · Local workbench
             </div>
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#94b2ff]">Privacy-first password instrumentation</p>
             <h1 className="mt-4 max-w-3xl font-display text-[2.35rem] font-bold leading-[0.98] tracking-[-0.065em] text-white sm:text-6xl lg:text-7xl">
@@ -224,7 +224,7 @@ export default function Home() {
                 <div className="mt-7 grid gap-6 md:grid-cols-[1fr_1fr]"><div><div className="flex justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-black/55"><span>Length</span><span className="text-[#275df5]">{length} characters</span></div><input aria-label="Generated password length" className="mt-4 w-full accent-[#275df5]" max="64" min="12" onChange={(event) => setLength(Number(event.target.value))} step="1" type="range" value={length} /><div className="mt-2 flex justify-between font-mono text-[10px] text-black/40"><span>12</span><span>64</span></div></div><div className="grid grid-cols-2 gap-2">{(Object.keys(enabled) as CharacterSet[]).map((key) => <button className={`border px-3 py-3 text-left font-mono text-[10px] uppercase tracking-[0.1em] transition ${enabled[key] ? "border-[#275df5] bg-[#e8eeff] text-[#1747ca]" : "border-black/15 bg-white text-black/40 hover:border-black/40"}`} key={key} onClick={() => setEnabled((state) => ({ ...state, [key]: !state[key] }))} type="button"><span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-current" />{key}</button>)}</div></div>
                 <p className="mt-6 font-mono text-[10px] leading-5 tracking-[0.04em] text-black/50">GENERATOR NOTE — Uses Web Crypto and rejection sampling so each selected character index is uniformly mapped. Ambiguous glyphs are excluded to reduce transcription mistakes.</p>
               </div>
-              <div className="relative min-h-[280px] overflow-hidden bg-[#0f1216] p-6 text-white sm:p-8"><div className="absolute inset-0 bg-cover bg-center opacity-45" style={{ backgroundImage: `url('${vaultloomAssets.generatorArt}')` }} /><div className="relative flex h-full flex-col justify-between"><div><span className="inline-flex items-center gap-2 border border-white/20 bg-black/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#b9ccff]"><Clipboard className="h-3.5 w-3.5" /> Generator protocol</span><h3 className="mt-5 max-w-sm font-display text-3xl font-bold leading-none tracking-[-0.055em]">A deliberate alternative to familiar, predictable choices.</h3></div><div className="border-t border-white/20 pt-5"><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">Selected families</p><p className="mt-2 font-display text-sm font-bold text-white">{activeSets.length ? activeSets.join(" · ") : "No families selected"}</p></div></div></div>
+              <div className="relative min-h-[280px] overflow-hidden bg-[#0f1216] p-6 text-white sm:p-8"><div className="cipher-generator-field absolute inset-0" /><div className="relative flex h-full flex-col justify-between"><div><span className="inline-flex items-center gap-2 border border-white/20 bg-black/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#b9ccff]"><Clipboard className="h-3.5 w-3.5" /> Generator protocol</span><h3 className="mt-5 max-w-sm font-display text-3xl font-bold leading-none tracking-[-0.055em]">A deliberate alternative to familiar, predictable choices.</h3></div><div className="border-t border-white/20 pt-5"><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">Selected families</p><p className="mt-2 font-display text-sm font-bold text-white">{activeSets.length ? activeSets.join(" · ") : "No families selected"}</p></div></div></div>
             </div>
           </section>
         </div>

@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { vaultloomAssetPaths } from "./assets";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
-describe("Vaultloom asset manifest", () => {
-  it("uses same-origin brand routes for every visible asset", () => {
-    expect(vaultloomAssetPaths).toHaveLength(3);
-    expect(new Set(vaultloomAssetPaths).size).toBe(vaultloomAssetPaths.length);
-    vaultloomAssetPaths.forEach(path => expect(path).toMatch(/^\/api\/brand\/[a-zA-Z]+$/));
+describe("Vaultloom visible brand delivery", () => {
+  it("does not make the rendered workbench depend on external image URLs", () => {
+    const home = readFileSync(resolve(import.meta.dirname, "../pages/Home.tsx"), "utf8");
+    const publicPage = readFileSync(resolve(import.meta.dirname, "../components/PublicPage.tsx"), "utf8");
+    expect(home).not.toContain("vaultloomAssets");
+    expect(publicPage).not.toContain("vaultloomAssets");
   });
 });

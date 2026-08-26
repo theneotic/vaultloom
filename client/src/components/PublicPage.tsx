@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import ThemeToggle from "@/components/ThemeToggle";
-import { vaultloomAssets } from "@/lib/assets";
+import VaultloomMark from "@/components/VaultloomMark";
 
 type PublicPageProps = {
   eyebrow: string;
@@ -30,7 +30,7 @@ export default function PublicPage({ eyebrow, ledger, title, lede, children }: P
         <div className="mx-auto max-w-6xl px-4 py-4 sm:px-10 sm:py-5 lg:px-14">
           <div className="flex items-center justify-between gap-4">
             <Link className="flex min-w-0 items-center gap-3" href="/">
-            <img alt="Vaultloom glyph" className="h-11 w-11 object-contain" src={vaultloomAssets.mark} />
+            <VaultloomMark className="h-11 w-11" label="Vaultloom glyph" />
             <span className="font-display text-base font-bold tracking-[-0.055em] text-white">[VAULT/LOOM]</span>
             </Link>
             <ThemeToggle />
