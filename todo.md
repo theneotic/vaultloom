@@ -90,11 +90,17 @@
 - [ ] Obtain the GitHub OAuth credentials, Vercel Blob token/base URL, and external database URL required to configure the live Vercel deployment.
 - [ ] Seed the public Vercel Blob objects for the Vaultloom mark, texture, and generator artwork, then verify all images load from the deployed site.
 
+# Deferred production reporting
+
+- [ ] Gate reporting availability on verified server/runtime configuration, not only a frontend flag.
+- [ ] Verify the live Contact page remains non-interactive until all OAuth, database, and Blob configuration is present.
+- [x] Replace the unavailable production reporting sign-in action with a clear, non-interactive deferred-reporting notice.
+
 # Catch-all Function startup repair
 
 - [x] Prebundle the Express/tRPC catch-all backend into a Vercel-safe API artifact so server imports cannot be omitted at runtime.
-- [ ] Verify and correct the bundled backend module format so ESM-only server dependencies can load in the Vercel Function.
-- [ ] Deploy and verify that the anonymous tRPC health route no longer returns `FUNCTION_INVOCATION_FAILED`.
+- [x] Verify and correct the bundled backend module format so ESM-only server dependencies can load in the Vercel Function.
+- [x] Deploy and verify that the anonymous tRPC health route no longer returns `FUNCTION_INVOCATION_FAILED`.
 
 # Public-layout refinement
 

@@ -43,11 +43,19 @@ The updated code passed TypeScript checking and the complete Vitest suite. The d
 
 ## Live Vercel validation status
 
-The connected Vercel project showed that production was serving a **stale deployment** from commit `ac70323` during this review. A safe unauthenticated request to `https://vaultlooms.vercel.app/api/trpc/system.health?batch=1&input=%7B%7D` returned `500 FUNCTION_INVOCATION_FAILED`. The deployment dashboard showed the same stale production source, and its runtime log view did not provide request events for the probe. A direct live home-page header check returned HSTS but none of the newly configured CSP, frame, MIME-sniffing, referrer, permissions, or opener headers. Consequently, the latest security hardening and theme corrections are **not yet deployed** and the current catch-all Vercel Function remains unverified in production.
+At the start of this review, the connected Vercel project served a **stale deployment** from commit `ac70323`. A safe unauthenticated health request returned `500 FUNCTION_INVOCATION_FAILED`, and a direct home-page header check returned HSTS but none of the new CSP, frame, MIME-sniffing, referrer, permissions, or opener headers. The deployment was subsequently updated as described below.
 
-The next release must push the current user-attributed commit, trigger a deployment from it, then retest the tRPC health route, production response headers, and the authenticated reporting flow. If the catch-all still fails, its `server/*` imports must be bundled or replaced with a self-contained Vercel-safe entrypoint before OAuth or reporting can be enabled.
+The user-attributed security release was pushed, the catch-all was prebundled as an ESM artifact, and the live `system.health` route and browser headers were retested successfully. Authenticated reporting remains intentionally unavailable until its provider configuration is supplied.
 
 The authenticated Vercel Environment Variables page showed **no project variables**. This confirms that `AUTH_SECRET`, `APP_ORIGIN`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `DATABASE_URL`, and `BLOB_READ_WRITE_TOKEN` are absent in the current project. Adding those values must be performed through Vercel’s secure environment-variable interface; credentials must not be placed in source control, client code, or this review document.
+
+The first post-review deployment (`e79f67f`) bundled the backend as CommonJS but still returned `FUNCTION_INVOCATION_FAILED` for the health probe. Local bundle inspection confirmed that Vaultloom depends on the ESM-only `jose` package, so the bundle was revised to ESM in commit `2ae4b33`; the generated artifact imports locally as an Express handler. The revised Vercel deployment returned `200 application/json` for the valid anonymous `system.health` request and supplied the configured CSP, HSTS, frame, MIME-sniffing, referrer, permissions, and cross-origin-opener headers. The catch-all startup failure is therefore resolved; OAuth, database, Blob, and authenticated-report validation remain dependent on configuration that is not yet present.
+
+The connected browser visually confirmed that the live dark homepage preserves its layout and that the three-step Analyze–Interpret–Generate panel now has a dark surface with readable headings, descriptions, and dividers. The browser extension timed out while switching to light mode, so the live light-state review remains pending; the matching local light-state review and theme regression tests have already passed.
+
+## Deferred reporting mode
+
+Vaultloom now derives reporting availability on the server. The public capability check and the protected submit route require a valid `AUTH_SECRET`, `APP_ORIGIN`, GitHub OAuth client credentials, an external database URL, and a private Blob token; the result reveals only a boolean capability, never missing-variable names or values. Until all requirements exist, Contact shows a non-interactive notice rather than a sign-in action, and direct submission is refused. This keeps the public local-only workbench operational while avoiding a partially configured reporting service.
 
 ## References
 

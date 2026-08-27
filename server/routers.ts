@@ -6,6 +6,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { allowedAttachmentTypes, decodeAttachment } from "./reportValidation";
+import { isReportingConfigured } from "./reportingAvailability";
 import { storagePut } from "./storage";
 
 const attachmentSchema = z.object({
@@ -28,6 +29,7 @@ export const appRouter = router({
     }),
   }),
   vulnerabilityReports: router({
+    status: publicProcedure.query(() => ({ available: isReportingConfigured() })),
     /** Requires an authenticated reporter and rejects arbitrary executables, archives, and oversized evidence. */
     submit: protectedProcedure
       .input(z.object({
@@ -37,6 +39,9 @@ export const appRouter = router({
         attachment: attachmentSchema.nullable(),
       }))
       .mutation(async ({ ctx, input }) => {
+        if (!isReportingConfigured()) {
+          throw new TRPCError({ code: "FORBIDDEN", message: "Vulnerability reporting is not configured." });
+        }
         if (/\b(password|recovery code|api key|access token|private key)\b/i.test(`${input.title}\n${input.details}`)) {
           throw new TRPCError({
             code: "BAD_REQUEST",

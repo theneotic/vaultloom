@@ -31,4 +31,17 @@ describe("production security contract", () => {
     expect(vercel).toContain("Strict-Transport-Security");
     expect(vercel).toContain("X-Frame-Options");
   });
+
+  it("does not offer unactionable production sign-in while reporting is deferred", () => {
+    const reportForm = projectFile("client/src/components/VulnerabilityReportForm.tsx");
+    const router = projectFile("server/routers.ts");
+    const availability = projectFile("server/reportingAvailability.ts");
+
+    expect(reportForm).toContain("vulnerabilityReports.status.useQuery");
+    expect(reportForm).toContain("Private reporting is currently unavailable");
+    expect(reportForm).not.toContain('onClick={startLogin}');
+    expect(router).toContain("status: publicProcedure.query");
+    expect(router).toContain("if (!isReportingConfigured())");
+    expect(availability).toContain("BLOB_READ_WRITE_TOKEN");
+  });
 });
