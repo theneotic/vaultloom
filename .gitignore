@@ -6,6 +6,7 @@
 dist/
 build/
 *.dist
+api/_backend.cjs
 
 # Environment variables
 .env

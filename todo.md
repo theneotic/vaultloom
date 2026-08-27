@@ -90,6 +90,11 @@
 - [ ] Obtain the GitHub OAuth credentials, Vercel Blob token/base URL, and external database URL required to configure the live Vercel deployment.
 - [ ] Seed the public Vercel Blob objects for the Vaultloom mark, texture, and generator artwork, then verify all images load from the deployed site.
 
+# Catch-all Function startup repair
+
+- [x] Prebundle the Express/tRPC catch-all backend into a Vercel-safe API artifact so server imports cannot be omitted at runtime.
+- [ ] Deploy and verify that the anonymous tRPC health route no longer returns `FUNCTION_INVOCATION_FAILED`.
+
 # Public-layout refinement
 
 - [x] Audit all public routes for structural hierarchy, navigation clarity, spacing, and responsive breakpoints.

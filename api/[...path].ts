@@ -1,3 +1,3 @@
-import { createApp } from "../server/app";
+import handler from "./_backend.cjs";
 
-export default createApp();
+export default handler;

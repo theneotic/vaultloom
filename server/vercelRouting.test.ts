@@ -12,6 +12,18 @@ describe("Vercel routing", () => {
     expect(config.rewrites).toContainEqual({ source: "/api/brand/:asset", destination: "/api/brand/[asset]" });
   });
 
+  it("loads the catch-all Function from a build-time bundled backend artifact", () => {
+    const route = readFileSync(resolve(import.meta.dirname, "../api/[...path].ts"), "utf8");
+    const entry = readFileSync(resolve(import.meta.dirname, "../api/_backend-entry.ts"), "utf8");
+    const packageJson = readFileSync(resolve(import.meta.dirname, "../package.json"), "utf8");
+
+    expect(route).toContain('from "./_backend.cjs"');
+    expect(route).not.toContain("../server/app");
+    expect(entry).toContain('from "../server/app"');
+    expect(packageJson).toContain("api/_backend-entry.ts");
+    expect(packageJson).toContain("--bundle --format=cjs --outfile=api/_backend.cjs");
+  });
+
   it("keeps the deployed brand function self-contained", () => {
     const route = readFileSync(resolve(import.meta.dirname, "../api/brand/[asset].ts"), "utf8");
     expect(route).not.toContain("../../server/");
