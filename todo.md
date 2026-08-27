@@ -114,3 +114,18 @@
 - [x] Recolor every authenticated reporting-form control and status panel without altering structure.
 - [ ] Capture and review both light and dark theme states for every public route at desktop and phone widths.
 - [ ] Commit and push the theme repair under THE <sigmamale2951@gmail.com>, then verify GitHub attribution and CI.
+
+# Dark sequence-panel contrast repair
+
+- [x] Correct the dark-mode sequence-panel text and border contrast without changing its layout or content.
+- [ ] Verify the corrected sequence panel at desktop and phone widths, then checkpoint the repair.
+
+# Risk-based application security review
+
+- [x] Audit Vaultloom against the supplied AI-generated application security checklist, prioritizing secrets, authentication, authorization, uploads, and production exposure.
+- [x] Implement evidence-backed code-level remediations and regression tests for verified findings.
+- [x] Document configuration-dependent Vercel, OAuth, database, Blob, monitoring, and backup safeguards separately from code findings.
+- [ ] Validate the remediations, checkpoint the audit, and record the user-attributed release status.
+- [x] Reduce API request-size exposure and add bounded in-memory abuse protection for sensitive mutation and sign-in paths.
+- [x] Add Vercel-wide browser security headers and prevent client/server error details from being exposed to users.
+- [x] Update or remove production dependencies with verified high-severity advisories, then re-run the production audit.

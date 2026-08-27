@@ -14,6 +14,8 @@ describe("Cipher Atelier theme color contract", () => {
     expect(css).toContain("html:not(.dark) .cipher-footer, html:not(.dark) .cipher-sidebar");
     expect(css).toContain("html.dark .cipher-workspace, html.dark .cipher-public-workspace");
     expect(css).toContain("html.dark .cipher-footer, html.dark .cipher-sidebar");
+    expect(css).toContain("html.dark .cipher-sequence");
+    expect(css).toContain("html.dark .cipher-sequence [class*=\"text-black\"]");
   });
 
   it("uses color hooks on the existing home structure instead of altering its layout", () => {

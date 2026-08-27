@@ -5,6 +5,15 @@ import type { TrpcContext } from "./context";
 
 const t = initTRPC.context<TrpcContext>().create({
   transformer: superjson,
+  errorFormatter({ shape, error }) {
+    const publicCodes = new Set(["BAD_REQUEST", "UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND", "TOO_MANY_REQUESTS"]);
+    const { stack: _stack, ...data } = shape.data;
+    return {
+      ...shape,
+      message: publicCodes.has(error.code) ? shape.message : "The request could not be completed.",
+      data,
+    };
+  },
 });
 
 export const router = t.router;

@@ -6,6 +6,7 @@ import type { User } from "../../drizzle/schema";
 import { COOKIE_NAME, ONE_YEAR_MS } from "../../shared/const";
 import * as db from "../db";
 import { getSessionCookieOptions } from "../_core/cookies";
+import { getConfiguredAppOrigin } from "../security";
 
 const GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 const GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token";
@@ -22,10 +23,16 @@ type SessionPayload = { openId: string; name: string };
 function getRequiredEnv(name: "AUTH_SECRET" | "GITHUB_CLIENT_ID" | "GITHUB_CLIENT_SECRET") {
   const value = process.env[name];
   if (!value) throw new Error(`${name} is not configured`);
+  if (name === "AUTH_SECRET" && Buffer.byteLength(value) < 32) {
+    throw new Error("AUTH_SECRET must contain at least 32 bytes.");
+  }
   return value;
 }
 
 function getRequestOrigin(req: Request) {
+  const configured = getConfiguredAppOrigin();
+  if (configured) return configured;
+  if (process.env.NODE_ENV === "production") throw new Error("APP_ORIGIN is not configured");
   const forwardedProto = req.headers["x-forwarded-proto"];
   const protocol = typeof forwardedProto === "string"
     ? forwardedProto.split(",")[0].trim()
@@ -62,9 +69,9 @@ async function createSessionToken(payload: SessionPayload) {
 }
 
 async function readSessionToken(token: string | undefined): Promise<SessionPayload | null> {
-  if (!token || !process.env.AUTH_SECRET) return null;
+  if (!token) return null;
   try {
-    const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
+    const secret = new TextEncoder().encode(getRequiredEnv("AUTH_SECRET"));
     const { payload } = await jwtVerify(token, secret, { algorithms: ["HS256"] });
     if (typeof payload.openId !== "string" || typeof payload.name !== "string") return null;
     return { openId: payload.openId, name: payload.name };
@@ -159,8 +166,8 @@ export function registerGitHubOAuthRoutes(app: Express) {
       const session = await createSessionToken({ openId, name });
       res.cookie(COOKIE_NAME, session, { ...getSessionCookieOptions(req), maxAge: ONE_YEAR_MS });
       res.redirect(302, "/contact");
-    } catch (error) {
-      console.error("[GitHub OAuth] Callback failed", error);
+    } catch {
+      console.error("[GitHub OAuth] Callback failed");
       res.status(500).json({ error: "GitHub sign-in could not be completed." });
     }
   });
