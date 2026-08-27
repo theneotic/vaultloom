@@ -17,11 +17,12 @@ describe("Vercel routing", () => {
     const entry = readFileSync(resolve(import.meta.dirname, "../api/_backend-entry.ts"), "utf8");
     const packageJson = readFileSync(resolve(import.meta.dirname, "../package.json"), "utf8");
 
-    expect(route).toContain('from "./_backend.cjs"');
+    expect(route).toContain('from "./_backend.mjs"');
     expect(route).not.toContain("../server/app");
     expect(entry).toContain('from "../server/app"');
     expect(packageJson).toContain("api/_backend-entry.ts");
-    expect(packageJson).toContain("--bundle --format=cjs --outfile=api/_backend.cjs");
+    expect(packageJson).toContain("--bundle --format=esm --outfile=api/_backend.mjs");
+    expect(packageJson).toContain("verify:vercel-backend");
   });
 
   it("keeps the deployed brand function self-contained", () => {

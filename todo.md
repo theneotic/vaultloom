@@ -93,6 +93,7 @@
 # Catch-all Function startup repair
 
 - [x] Prebundle the Express/tRPC catch-all backend into a Vercel-safe API artifact so server imports cannot be omitted at runtime.
+- [ ] Verify and correct the bundled backend module format so ESM-only server dependencies can load in the Vercel Function.
 - [ ] Deploy and verify that the anonymous tRPC health route no longer returns `FUNCTION_INVOCATION_FAILED`.
 
 # Public-layout refinement

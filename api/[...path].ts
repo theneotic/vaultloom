@@ -1,3 +1,3 @@
-import handler from "./_backend.cjs";
+import handler from "./_backend.mjs";
 
 export default handler;
