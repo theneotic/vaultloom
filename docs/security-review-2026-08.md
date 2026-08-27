@@ -55,7 +55,7 @@ The connected browser visually confirmed that the live dark homepage preserves i
 
 ## Deferred reporting mode
 
-Vaultloom now derives reporting availability on the server. The public capability check and the protected submit route require a valid `AUTH_SECRET`, `APP_ORIGIN`, GitHub OAuth client credentials, an external database URL, and a private Blob token; the result reveals only a boolean capability, never missing-variable names or values. Until all requirements exist, Contact shows a non-interactive notice rather than a sign-in action, and direct submission is refused. This keeps the public local-only workbench operational while avoiding a partially configured reporting service.
+Vaultloom now derives reporting availability on the server. The public capability check and the protected submit route require a valid `AUTH_SECRET`, `APP_ORIGIN`, GitHub OAuth client credentials, an external database URL, and a private Blob token; the result reveals only a boolean capability, never missing-variable names or values. Until all requirements exist, Contact shows a non-interactive notice rather than a sign-in action, and direct submission is refused. The live capability response was `available: false`, and the deployed Contact page displayed the non-interactive notice. This keeps the public local-only workbench operational while avoiding a partially configured reporting service.
 
 ## References
 

@@ -92,8 +92,8 @@
 
 # Deferred production reporting
 
-- [ ] Gate reporting availability on verified server/runtime configuration, not only a frontend flag.
-- [ ] Verify the live Contact page remains non-interactive until all OAuth, database, and Blob configuration is present.
+- [x] Gate reporting availability on verified server/runtime configuration, not only a frontend flag.
+- [x] Verify the live Contact page remains non-interactive until all OAuth, database, and Blob configuration is present.
 - [x] Replace the unavailable production reporting sign-in action with a clear, non-interactive deferred-reporting notice.
 
 # Catch-all Function startup repair
