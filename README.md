@@ -1,5 +1,24 @@
 # Vaultloom
 
+> **A privacy-first password workbench that generates credentials locally and estimates guessability in the active browser tab.**
+
+| Project lens | Details |
+| --- | --- |
+| **Type** | Web application |
+| **Stack** | TypeScript · React · Vite |
+| **Status** | Actively maintained |
+
+## Overview
+
+A privacy-first password workbench that generates credentials locally and estimates guessability in the active browser tab. This README keeps the project’s verified setup, usage, privacy, and implementation notes together in one place.
+
+## Repository Snapshot
+
+The top-level workspace currently includes `Dockerfile`, `LICENSE`, `README.md`, `api/`, `client/`, `components.json`, `docs/`, `drizzle/`, `drizzle.config.ts`, `ideas.md`, `package.json`, `patches/`. Review the project-specific sections below before installing dependencies, supplying configuration values, or running a build.
+
+
+---
+
 > **Measure guessability. Keep the secret here.**
 
 Vaultloom is a privacy-first password workbench. It generates passwords locally with the browser Web Crypto API and rejection sampling, then estimates password guessability with `zxcvbn-ts` in the active tab. The project deliberately contains no password-analysis API, telemetry, or browser storage for password work.
